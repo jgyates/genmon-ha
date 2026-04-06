@@ -35,7 +35,7 @@ This integration communicates with the **genhalink** addon running on your genmo
 
 ### Option 2: Manual
 
-1. Copy the `HomeAssistant/custom_components/genmon/` folder to your Home Assistant `config/custom_components/` directory
+1. Copy the `https://github.com/jgyates/genmon-ha/custom_components/genmon/` folder to your Home Assistant `config/custom_components/` directory
 2. Restart Home Assistant
 
 ## Setup
