@@ -21,6 +21,8 @@ from .entity import GenmonEntity, should_add_entity
 _LOGGER = logging.getLogger(__name__)
 _UNSET = object()  # sentinel distinct from any real native_value
 
+UNIT_FIXUP = {"C": "°C", "F": "°F", "K": "K"}
+
 DEVICE_CLASS_MAP = {
     "voltage": SensorDeviceClass.VOLTAGE,
     "current": SensorDeviceClass.CURRENT,
@@ -130,7 +132,7 @@ class GenmonSensor(GenmonEntity, SensorEntity):
             if numeric is not None:
                 # Set discovered unit if we didn't have one predefined
                 if self._expected_unit is None and unit:
-                    self._attr_native_unit_of_measurement = unit
+                    self._attr_native_unit_of_measurement = UNIT_FIXUP.get(unit, unit)
                 return numeric
             # If not parseable as number, return as string
             return str(raw) if raw != "" else None
