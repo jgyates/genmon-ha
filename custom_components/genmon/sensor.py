@@ -91,7 +91,9 @@ class GenmonSensor(GenmonEntity, SensorEntity):
 
         self._path = defn.get("path", "")
         self._attr_icon = defn.get("icon")
-        self._expected_unit = defn.get("unit")
+        # genhalink may send a bare "C"/"F"; HA's temperature device class needs "°C"/"°F"
+        _defn_unit = defn.get("unit")
+        self._expected_unit = UNIT_FIXUP.get(_defn_unit, _defn_unit)
         self._is_numeric = self._expected_unit is not None or defn.get("device_class") in (
             "voltage", "current", "power", "energy", "frequency",
             "temperature", "humidity", "pressure", "duration",
