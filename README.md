@@ -9,7 +9,7 @@ This integration communicates with the **genhalink** addon running on your genmo
 - **60+ sensors**: Battery voltage, RPM, output power, fuel level, run hours, weather, and more
 - **8 binary sensors**: Outage detection, generator running, alarm active, utility present, etc.
 - **5 control buttons**: Start, Stop, Start Transfer, Start Exercise, Set Time
-- **Quiet mode switch**: Toggle quiet mode for Evolution/Nexus controllers
+- **Quiet mode switch**: Toggle quiet mode for liquid-cooled Evolution controllers
 - **Exercise scheduling**: Select day/frequency and set hour/minute via HA UI
 - **Automatic discovery**: Zeroconf/mDNS finds your generator on the network
 - **WebSocket push updates**: Near-instant state changes without polling delay
@@ -118,7 +118,7 @@ After setup, you can configure options via the integration's **Configure** butto
 | Start Transfer | Button | Start with transfer |
 | Start Exercise | Button | Trigger exercise cycle |
 | Set Generator Time | Button | Sync generator clock |
-| Quiet Mode | Switch | Toggle quiet mode (Evo/Nexus) |
+| Quiet Mode | Switch | Toggle quiet mode (liquid-cooled Evolution) |
 | Exercise Frequency | Select | Weekly/BiWeekly/Monthly |
 | Exercise Day of Week | Select | Day selection for exercise |
 | Exercise Hour/Minute | Number | Time of day for exercise |
