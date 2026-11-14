@@ -13,7 +13,7 @@ This integration communicates with the **genhalink** addon running on your genmo
 - **Exercise scheduling**: Select day/frequency and set hour/minute via HA UI
 - **Automatic discovery**: Zeroconf/mDNS finds your generator on the network
 - **WebSocket push updates**: Near-instant state changes without polling delay
-- **HACS compatible**: One-click install via the Home Assistant Community Store
+- **Marketplace / HACS**: Install and update from the Home Assistant Marketplace (HACS on Home Assistant 2026.10 or older)
 - **Diagnostics**: Built-in diagnostics download for troubleshooting
 - **Multi-instance**: Supports multiple generators
 
@@ -25,7 +25,19 @@ This integration communicates with the **genhalink** addon running on your genmo
 
 ## Installation
 
-### Option 1: HACS (Recommended)
+### Option 1: Marketplace / HACS (Recommended)
+
+[![Open your Home Assistant instance and open a repository in the Marketplace.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=jgyates&repository=genmon-ha&category=integration)
+
+The button opens Genmon in the Marketplace (Home Assistant 2026.11 or newer) or in HACS (older versions). If Genmon isn't listed yet, Home Assistant offers to add the repository first.
+
+**Home Assistant 2026.11 or newer (Marketplace)**
+
+1. Click the button above, or go to **Settings** → **Marketplace** and search for "Genmon Generator Monitor"
+2. Select **Install**, check the version, and select **Install** again
+3. The integration setup opens right away (no restart needed for the first install) — continue with [Setup](#setup)
+
+**Home Assistant 2026.10 or older (HACS)**
 
 1. Open HACS in Home Assistant
 2. Click the three dots menu → **Custom repositories**
@@ -58,7 +70,10 @@ This integration communicates with the **genhalink** addon running on your genmo
 4. Click **Submit**
 
 #### Manual Setup
-1. Go to **Settings** → **Devices & Services** → **Add Integration**
+
+[![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=genmon)
+
+1. Click the button above, or go to **Settings** → **Devices & Services** → **Add Integration**
 2. Search for **Genmon**
 3. Enter:
    - **Host**: IP address of your genmon Raspberry Pi
@@ -162,4 +177,4 @@ tail -f /var/log/genhalink.log
 
 ## License
 
-This integration is part of the [genmon](https://github.com/jgyates/genmon) project and is distributed under the same license.
+This integration is part of the [genmon](https://github.com/jgyates/genmon) project and is distributed under the same license, GPL-2.0 (see [LICENSE](LICENSE)).
