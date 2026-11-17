@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import asyncio
 import logging
-import time
 from datetime import timedelta
 from typing import Any, Callable
 
@@ -42,7 +41,6 @@ class GenmonCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self.info: dict[str, Any] = {}
         self._new_entity_callbacks: dict[str, Callable] = {}
         self._known_entity_ids: dict[str, set[str]] = {}
-        self._last_entity_fetch: float = 0
 
         interval = entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
 
@@ -60,20 +58,20 @@ class GenmonCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         except GenmonConnectionError as err:
             raise UpdateFailed(f"Error communicating with genhalink: {err}") from err
 
-        # Fetch entity definitions: always on first call, then re-check every 60s
+        # Entity definitions are needed before the platforms are set up; later
+        # updates come from async_refresh_entities.
         try:
-            now = time.monotonic()
-            if not self.entities or (now - self._last_entity_fetch >= 60):
+            if not self.entities:
                 fresh = await self.api.get_entities()
                 if fresh:
-                    if self.entities and self._new_entity_callbacks:
-                        self._dispatch_new_entities(fresh)
                     self.entities = fresh
-                    self._last_entity_fetch = now
             if not self.info:
                 self.info = await self.api.get_info()
         except GenmonConnectionError:
             _LOGGER.debug("Failed to fetch entities/info, will retry next poll")
+        if not self.entities:
+            # genhalink answers 503 until genmon has delivered complete data
+            raise UpdateFailed("Waiting for entity definitions from genhalink")
 
         # The API returns {"state": {...}, "values": {...}}
         # Entities need the nested state dict for path traversal
@@ -83,6 +81,25 @@ class GenmonCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             len(state) if isinstance(state, dict) else 0,
         )
         return state
+
+    async def async_refresh_entities(self, _now: Any = None) -> None:
+        """Fetch entity definitions again and add entities that are new.
+
+        Runs on its own timer: WebSocket pushes call async_set_updated_data,
+        which reschedules the coordinator poll, so a fetch inside
+        _async_update_data never runs while genhalink keeps pushing data.
+        """
+        try:
+            fresh = await self.api.get_entities()
+        except GenmonConnectionError as err:
+            # Includes 503 while genhalink waits for genmon after a restart;
+            # the current list stays until a complete one is available.
+            _LOGGER.debug("Entity refresh skipped: %s", err)
+            return
+        if fresh:
+            if self._new_entity_callbacks:
+                self._dispatch_new_entities(fresh)
+            self.entities = fresh
 
     def register_platform(
         self,

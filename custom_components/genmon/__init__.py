@@ -1,12 +1,14 @@
 """The Genmon Generator Monitor integration."""
 from __future__ import annotations
 
+from datetime import timedelta
 import logging
 from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import entity_registry as er
+from homeassistant.helpers.event import async_call_later, async_track_time_interval
 
 from .const import DOMAIN, PLATFORMS
 from .coordinator import GenmonCoordinator
@@ -15,6 +17,11 @@ from .entity import should_add_entity
 _LOGGER = logging.getLogger(__name__)
 
 type GenmonConfigEntry = ConfigEntry
+
+ENTITY_REFRESH_INTERVAL = timedelta(seconds=60)
+# Stale entities are removed only after genhalink has had time to report
+# everything (values genmon delivers late, entity list refreshes).
+STALE_CLEANUP_DELAY = 600
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: GenmonConfigEntry) -> bool:
@@ -29,7 +36,17 @@ async def async_setup_entry(hass: HomeAssistant, entry: GenmonConfigEntry) -> bo
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
-    _async_cleanup_stale_entities(hass, entry, coordinator)
+    entry.async_on_unload(
+        async_track_time_interval(
+            hass, coordinator.async_refresh_entities, ENTITY_REFRESH_INTERVAL
+        )
+    )
+
+    @callback
+    def _cleanup_stale(_now: Any) -> None:
+        _async_cleanup_stale_entities(hass, entry, coordinator)
+
+    entry.async_on_unload(async_call_later(hass, STALE_CLEANUP_DELAY, _cleanup_stale))
 
     entry.async_on_unload(entry.add_update_listener(_async_update_options))
 

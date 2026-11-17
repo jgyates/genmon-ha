@@ -7,8 +7,8 @@
     "dependencies": [],
     "documentation": "https://github.com/jgyates/genmon-ha",
     "iot_class": "local_push",
-    "issue_tracker": "https://github.com/jgyates/genmon/issues",
+    "issue_tracker": "https://github.com/jgyates/genmon-ha/issues",
     "requirements": [],
-    "version": "1.0.1",
+    "version": "1.0.2",
     "zeroconf": ["_genmon._tcp.local."]
 }
