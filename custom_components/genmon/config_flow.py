@@ -1,6 +1,7 @@
 """Config flow for Genmon Generator Monitor."""
 from __future__ import annotations
 
+from collections.abc import Mapping
 import logging
 from typing import Any
 
@@ -36,7 +37,7 @@ USER_SCHEMA = vol.Schema(
     }
 )
 
-ZEROCONF_SCHEMA = vol.Schema(
+API_KEY_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_API_KEY): str,
     }
@@ -61,20 +62,13 @@ class GenmonConfigFlow(ConfigFlow, domain=DOMAIN):
         errors: dict[str, str] = {}
 
         if user_input is not None:
-            try:
-                info, use_ssl = await self._validate(
-                    user_input[CONF_HOST],
-                    user_input[CONF_PORT],
-                    user_input[CONF_API_KEY],
-                )
-            except GenmonConnectionError:
-                errors["base"] = "cannot_connect"
-            except GenmonAuthError:
-                errors["base"] = "invalid_auth"
-            except Exception:
-                _LOGGER.exception("Unexpected error")
-                errors["base"] = "unknown"
-            else:
+            info, use_ssl = await self._try_validate(
+                errors,
+                user_input[CONF_HOST],
+                user_input[CONF_PORT],
+                user_input[CONF_API_KEY],
+            )
+            if not errors:
                 unique_id = self._get_unique_id(info, user_input[CONF_HOST])
                 await self.async_set_unique_id(unique_id)
                 self._abort_if_unique_id_configured()
@@ -127,18 +121,10 @@ class GenmonConfigFlow(ConfigFlow, domain=DOMAIN):
         errors: dict[str, str] = {}
 
         if user_input is not None:
-            try:
-                info, use_ssl = await self._validate(
-                    self._host, self._port, user_input[CONF_API_KEY]
-                )
-            except GenmonConnectionError:
-                errors["base"] = "cannot_connect"
-            except GenmonAuthError:
-                errors["base"] = "invalid_auth"
-            except Exception:
-                _LOGGER.exception("Unexpected error")
-                errors["base"] = "unknown"
-            else:
+            info, use_ssl = await self._try_validate(
+                errors, self._host, self._port, user_input[CONF_API_KEY]
+            )
+            if not errors:
                 title = info.get("model", info.get("Model", "Genmon Generator"))
                 return self.async_create_entry(
                     title=title,
@@ -152,7 +138,7 @@ class GenmonConfigFlow(ConfigFlow, domain=DOMAIN):
 
         return self.async_show_form(
             step_id="zeroconf_confirm",
-            data_schema=ZEROCONF_SCHEMA,
+            data_schema=API_KEY_SCHEMA,
             errors=errors,
             description_placeholders={
                 "host": self._host,
@@ -169,20 +155,13 @@ class GenmonConfigFlow(ConfigFlow, domain=DOMAIN):
         entry = self.hass.config_entries.async_get_entry(self.context["entry_id"])
 
         if user_input is not None:
-            try:
-                _info, use_ssl = await self._validate(
-                    user_input[CONF_HOST],
-                    user_input[CONF_PORT],
-                    user_input[CONF_API_KEY],
-                )
-            except GenmonConnectionError:
-                errors["base"] = "cannot_connect"
-            except GenmonAuthError:
-                errors["base"] = "invalid_auth"
-            except Exception:
-                _LOGGER.exception("Unexpected error")
-                errors["base"] = "unknown"
-            else:
+            _info, use_ssl = await self._try_validate(
+                errors,
+                user_input[CONF_HOST],
+                user_input[CONF_PORT],
+                user_input[CONF_API_KEY],
+            )
+            if not errors:
                 data = {**user_input, CONF_USE_SSL: use_ssl}
                 return self.async_update_reload_and_abort(
                     entry, data=data
@@ -198,6 +177,45 @@ class GenmonConfigFlow(ConfigFlow, domain=DOMAIN):
                 }
             ),
             errors=errors,
+        )
+
+    async def async_step_reauth(
+        self, entry_data: Mapping[str, Any]
+    ) -> FlowResult:
+        """genhalink rejected the API key: ask for the new one."""
+        return await self.async_step_reauth_confirm()
+
+    async def async_step_reauth_confirm(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
+        """Enter and check the new API key."""
+        errors: dict[str, str] = {}
+        entry = self._get_reauth_entry()
+
+        if user_input is not None:
+            _info, use_ssl = await self._try_validate(
+                errors,
+                entry.data[CONF_HOST],
+                entry.data[CONF_PORT],
+                user_input[CONF_API_KEY],
+            )
+            if not errors:
+                return self.async_update_reload_and_abort(
+                    entry,
+                    data_updates={
+                        CONF_API_KEY: user_input[CONF_API_KEY],
+                        CONF_USE_SSL: use_ssl,
+                    },
+                )
+
+        return self.async_show_form(
+            step_id="reauth_confirm",
+            data_schema=API_KEY_SCHEMA,
+            errors=errors,
+            description_placeholders={
+                "host": entry.data[CONF_HOST],
+                "port": str(entry.data[CONF_PORT]),
+            },
         )
 
     @staticmethod
@@ -217,6 +235,21 @@ class GenmonConfigFlow(ConfigFlow, domain=DOMAIN):
             return info, client._use_ssl
         finally:
             await client.close()
+
+    async def _try_validate(
+        self, errors: dict[str, str], host: str, port: int, api_key: str
+    ) -> tuple[dict, bool]:
+        """_validate, recording a failure in errors["base"] for the form."""
+        try:
+            return await self._validate(host, port, api_key)
+        except GenmonConnectionError:
+            errors["base"] = "cannot_connect"
+        except GenmonAuthError:
+            errors["base"] = "invalid_auth"
+        except Exception:
+            _LOGGER.exception("Unexpected error")
+            errors["base"] = "unknown"
+        return {}, False
 
     @staticmethod
     def _get_unique_id(info: dict, host: str) -> str:

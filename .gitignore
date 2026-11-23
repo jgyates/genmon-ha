@@ -105,3 +105,7 @@ ehthumbs.db
 Thumbs.db
 /.vs
 /.idea
+
+# Test environment
+.venv/
+.pytest_cache/

@@ -1,16 +1,16 @@
 """Button platform for Genmon Generator Monitor."""
 from __future__ import annotations
 
-import copy
-import json
 import logging
 from typing import Any
 
 from homeassistant.components.button import ButtonEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.exceptions import ServiceValidationError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from . import controller_buttons as cb
 from .const import CONF_BUTTON_PASSCODE, DOMAIN
 from .coordinator import GenmonCoordinator
 from .entity import GenmonEntity, should_add_entity
@@ -47,7 +47,7 @@ async def async_setup_entry(
 
     # Static button definitions from JSON files
     controller_type = coordinator.entities.get("controller_type")
-    capabilities = coordinator.entities.get("capabilities", {})
+    capabilities = coordinator.capabilities
     known_ids: set[str] = set()
     entity_defs = coordinator.entities.get("buttons", [])
     for defn in entity_defs:
@@ -59,14 +59,22 @@ async def async_setup_entry(
     controller_buttons = coordinator.entities.get("buttons_from_controller", [])
     passcode = entry.options.get(CONF_BUTTON_PASSCODE, "")
     for button in controller_buttons:
-        entities.append(GenmonControllerButton(coordinator, button, passcode))
+        kind = cb.classify(button)
+        if kind in (cb.BUTTON, cb.ACTION):
+            entities.append(GenmonControllerButton(coordinator, button, passcode))
+        elif kind == cb.UNSUPPORTED:
+            _LOGGER.warning(
+                "Controller button %s has more than one input; not supported",
+                button.get("onewordcommand"),
+            )
+        # SETTING buttons are number entities (number.py)
 
     async_add_entities(entities)
 
     @callback
     def _add_new(new_defs: list[dict]) -> None:
         ct = coordinator.entities.get("controller_type")
-        caps = coordinator.entities.get("capabilities", {})
+        caps = coordinator.capabilities
         async_add_entities([
             GenmonButton(coordinator, d)
             for d in new_defs
@@ -91,15 +99,14 @@ class GenmonButton(GenmonEntity, ButtonEntity):
     async def async_press(self) -> None:
         """Handle the button press."""
         _LOGGER.debug("Pressing button %s: %s", self.name, self._command)
-        await self.coordinator.api.send_command(self._command)
-        await self.coordinator.async_request_refresh()
+        await self.coordinator.async_send_command(self._command)
 
 
 class GenmonControllerButton(GenmonEntity, ButtonEntity):
-    """A button entity sourced from the controller's StartInfo buttons.
+    """A button from the controller's StartInfo buttons (set_button_command).
 
-    Uses the set_button_command API. For command_sequence entries that have
-    an input_title but no value, the configured button_passcode is injected.
+    Passcode inputs get the button_passcode option. A button with a number
+    input (controller_buttons.ACTION) uses the value of its input number.
     """
 
     def __init__(
@@ -110,25 +117,26 @@ class GenmonControllerButton(GenmonEntity, ButtonEntity):
     ) -> None:
         onewordcommand = button.get("onewordcommand", "")
         title = button.get("title", onewordcommand)
-        entity_key = f"ctrl_{onewordcommand.lower().replace(' ', '_')}"
-        super().__init__(coordinator, entity_key, title)
+        super().__init__(coordinator, cb.button_key(button), title)
 
+        self._button = button
         self._onewordcommand = onewordcommand
-        self._command_sequence = button.get("command_sequence", [])
         self._passcode = passcode
+        self._has_input = cb.classify(button) == cb.ACTION
         self._attr_icon = _ICON_MAP.get(onewordcommand.lower(), "mdi:button-pointer")
 
     async def async_press(self) -> None:
         """Handle the button press via set_button_command."""
-        cmd_seq = copy.deepcopy(self._command_sequence)
-        for cmd in cmd_seq:
-            if "input_title" in cmd and "value" not in cmd:
-                cmd["value"] = self._passcode
-
-        payload = json.dumps([{
-            "onewordcommand": self._onewordcommand,
-            "command_sequence": cmd_seq,
-        }])
+        value = None
+        if self._has_input:
+            value = self.coordinator.controller_inputs.get(cb.button_key(self._button))
+            if value is None:
+                raise ServiceValidationError(
+                    translation_domain=DOMAIN,
+                    translation_key="controller_input_not_set",
+                    translation_placeholders={"button": self.name or self._onewordcommand},
+                )
         _LOGGER.debug("Pressing controller button %s", self._onewordcommand)
-        await self.coordinator.api.send_command(f"set_button_command={payload}")
-        await self.coordinator.async_request_refresh()
+        await self.coordinator.async_send_command(
+            cb.build_command(self._button, self._passcode, value)
+        )

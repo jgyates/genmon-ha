@@ -1,0 +1,396 @@
+{
+  "state": {
+    "Maintenance": {
+      "Controller Detected": "Kohler APM603",
+      "Controller Hours": {
+        "type": "float",
+        "unit": "h",
+        "value": 21769.0
+      },
+      "Cooldown Temp Limit": {
+        "type": "float",
+        "unit": "F",
+        "value": 167.0
+      },
+      "Cooldown Time Limit": {
+        "type": "float",
+        "unit": "sec",
+        "value": 300.0
+      },
+      "Crank Cycle Count": 0.0,
+      "ECU Runtime Hours": {
+        "type": "float",
+        "unit": "h",
+        "value": 0.0
+      },
+      "Fault Cooldown Time Limit": {
+        "type": "float",
+        "unit": "sec",
+        "value": 300.0
+      },
+      "Fuel Type": "Diesel",
+      "Maintenance Due": "No",
+      "Model": "Kohler APM603",
+      "Nominal Frequency": 60,
+      "Nominal RPM": 1800,
+      "Phase": 3,
+      "Rated kW": "300",
+      "Warmup Temp Limit": {
+        "type": "float",
+        "unit": "F",
+        "value": 140.0
+      },
+      "Warmup Time Limit": {
+        "type": "float",
+        "unit": "sec",
+        "value": 0.0
+      }
+    },
+    "Monitor": {
+      "Communication Stats": {
+        "Average Transaction Time": "0.0119 sec",
+        "CRC Errors": "0 ",
+        "CRC Percent Errors": "0.00%",
+        "Comm Restarts": "0",
+        "Discarded Bytes": "0",
+        "Invalid Data": 0,
+        "Modbus Exceptions": 0,
+        "Modbus Transport": "TCP",
+        "Packet Count": "M: 598, S: 597",
+        "Packets Per Second": "164.35",
+        "Sync Errors": 0,
+        "Timeout Percent Errors": "0.00%",
+        "Validation Errors": 0
+      },
+      "Generator Monitor Stats": {
+        "Generator Monitor Version": "2.0.4",
+        "Monitor Health": "OK",
+        "Power log file size": "0.00 MB of 15.00 MB",
+        "Run time": "Generator Monitor running for 0:00:07.",
+        "Update Available": "No",
+        "Update Version": ""
+      },
+      "Platform Stats": {
+        "Architecture": "64",
+        "OS Release": "27.2.0",
+        "OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+        "Platform": "Darwin",
+        "Processor": "arm",
+        "System Time": "Monday November 23, 2026 14:00:01"
+      }
+    },
+    "Outage": {
+      "Outage Log": "",
+      "Status": "No outage has occurred since program launched.",
+      "System In Outage": "No",
+      "Utility Voltage Maximum": {
+        "type": "int",
+        "unit": "V",
+        "value": 0
+      },
+      "Utility Voltage Minimum": {
+        "type": "int",
+        "unit": "V",
+        "value": 0
+      }
+    },
+    "Status": {
+      "Battery Voltage": {
+        "type": "float",
+        "unit": "V",
+        "value": 26.31
+      },
+      "Current Average Single Phase": {
+        "type": "float",
+        "unit": "A",
+        "value": 0.0
+      },
+      "Current Average Three phase": {
+        "type": "float",
+        "unit": "A",
+        "value": 0.0
+      },
+      "Engine": {
+        "ECU Battery Voltage": {
+          "type": "float",
+          "unit": "V",
+          "value": 0.0
+        },
+        "ECU Coolant Temperature": {
+          "type": "float",
+          "unit": "F",
+          "value": 32.0
+        },
+        "ECU Fuel Pressure": {
+          "type": "float",
+          "unit": "kPA",
+          "value": 0.0
+        },
+        "ECU Fuel Rate": {
+          "type": "float",
+          "unit": "Liters per hour",
+          "value": 0.0
+        },
+        "ECU Intake Manifold Temperature": {
+          "type": "float",
+          "unit": "F",
+          "value": 32.0
+        },
+        "ECU RPM": {
+          "type": "float",
+          "unit": "RPM",
+          "value": 0.0
+        },
+        "Generator Current L1": {
+          "type": "float",
+          "unit": "A",
+          "value": 0.0
+        },
+        "Generator Current L2": {
+          "type": "float",
+          "unit": "A",
+          "value": 0.0
+        },
+        "Generator Current L3": {
+          "type": "float",
+          "unit": "A",
+          "value": 0.0
+        },
+        "Generator Frequency": {
+          "type": "float",
+          "unit": "Hz",
+          "value": 0.0
+        },
+        "Generator Voltage L1 L0": {
+          "type": "float",
+          "unit": "V",
+          "value": 0.0
+        },
+        "Generator Voltage L1 L2": {
+          "type": "float",
+          "unit": "V",
+          "value": 0.0
+        },
+        "Generator Voltage L2 L0": {
+          "type": "float",
+          "unit": "V",
+          "value": 0.0
+        },
+        "Generator Voltage L2 L3": {
+          "type": "float",
+          "unit": "V",
+          "value": 0.0
+        },
+        "Generator Voltage L3 L0": {
+          "type": "float",
+          "unit": "V",
+          "value": 0.0
+        },
+        "Generator Voltage L3 L1": {
+          "type": "float",
+          "unit": "V",
+          "value": 0.0
+        }
+      },
+      "Generator Status": "Inactive",
+      "Reactive Power L1": {
+        "type": "float",
+        "unit": "VAR",
+        "value": 0.0
+      },
+      "Reactive Power L2": {
+        "type": "float",
+        "unit": "VAR",
+        "value": 0.0
+      },
+      "Reactive Power L3": {
+        "type": "float",
+        "unit": "VAR",
+        "value": 0.0
+      },
+      "Real Power L1": {
+        "type": "float",
+        "unit": "W",
+        "value": 0.0
+      },
+      "Real Power L2": {
+        "type": "float",
+        "unit": "W",
+        "value": 0.0
+      },
+      "Real Power L3": {
+        "type": "float",
+        "unit": "W",
+        "value": 0.0
+      },
+      "Time": {
+        "Monitor Time": "Monday November 23, 2026 14:00:01"
+      },
+      "Total Power Factor": 0.0,
+      "Total Reactive Power": {
+        "type": "float",
+        "unit": "W",
+        "value": 0.0
+      },
+      "Total Real Power": {
+        "type": "float",
+        "unit": "W",
+        "value": 0.0
+      },
+      "Voltage Average L To L": {
+        "type": "float",
+        "unit": "V",
+        "value": 0.0
+      },
+      "Voltage Average L To N": {
+        "type": "float",
+        "unit": "V",
+        "value": 0.0
+      }
+    },
+    "gui_status": {
+      "AltDateformat": false,
+      "ExerciseInfo": {
+        "Day": "Monday",
+        "Enabled": false,
+        "EnhancedExerciseMode": false,
+        "Frequency": "Weekly",
+        "Hour": "14",
+        "Minute": "00",
+        "QuietMode": "Off"
+      },
+      "MonitorTime": "11/23/2026 14:00",
+      "OutputVoltage": 0.0,
+      "PlatformStats": {
+        "Architecture": "64",
+        "OS Release": "27.2.0",
+        "OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+        "Platform": "Darwin",
+        "Processor": "arm",
+        "System Time": "Monday November 23, 2026 14:00:01"
+      },
+      "RunHours": "0.0",
+      "SystemHealth": "OK",
+      "UnsentFeedback": "False",
+      "UpdateAvailable": false,
+      "basestatus": "READY",
+      "enginestate": "Inactive",
+      "kwOutput": 0.0,
+      "switchstate": "Inactive",
+      "tiles": {
+        "subtype": "powergraph",
+        "text": "0 kW",
+        "title": "Power 2",
+        "type": "graph",
+        "value": "0"
+      },
+      "version": "2.0.4"
+    }
+  },
+  "values": {
+    "Maintenance/Controller Detected": "Kohler APM603",
+    "Maintenance/Controller Hours": "21769.0 h",
+    "Maintenance/Cooldown Temp Limit": "167.0 F",
+    "Maintenance/Cooldown Time Limit": "300.0 sec",
+    "Maintenance/Crank Cycle Count": 0.0,
+    "Maintenance/ECU Runtime Hours": "0.0 h",
+    "Maintenance/Fault Cooldown Time Limit": "300.0 sec",
+    "Maintenance/Fuel Type": "Diesel",
+    "Maintenance/Maintenance Due": "No",
+    "Maintenance/Model": "Kohler APM603",
+    "Maintenance/Nominal Frequency": 60,
+    "Maintenance/Nominal RPM": 1800,
+    "Maintenance/Phase": 3,
+    "Maintenance/Rated kW": "300",
+    "Maintenance/Warmup Temp Limit": "140.0 F",
+    "Maintenance/Warmup Time Limit": "0.0 sec",
+    "Monitor/Communication Stats/Average Transaction Time": "0.0119 sec",
+    "Monitor/Communication Stats/CRC Errors": "0 ",
+    "Monitor/Communication Stats/CRC Percent Errors": "0.00%",
+    "Monitor/Communication Stats/Comm Restarts": "0",
+    "Monitor/Communication Stats/Discarded Bytes": "0",
+    "Monitor/Communication Stats/Invalid Data": 0,
+    "Monitor/Communication Stats/Modbus Exceptions": 0,
+    "Monitor/Communication Stats/Modbus Transport": "TCP",
+    "Monitor/Communication Stats/Packet Count": "M: 598, S: 597",
+    "Monitor/Communication Stats/Packets Per Second": "164.35",
+    "Monitor/Communication Stats/Sync Errors": 0,
+    "Monitor/Communication Stats/Timeout Percent Errors": "0.00%",
+    "Monitor/Communication Stats/Validation Errors": 0,
+    "Monitor/Generator Monitor Stats/Generator Monitor Version": "2.0.4",
+    "Monitor/Generator Monitor Stats/Monitor Health": "OK",
+    "Monitor/Generator Monitor Stats/Power log file size": "0.00 MB of 15.00 MB",
+    "Monitor/Generator Monitor Stats/Run time": "Generator Monitor running for 0:00:07.",
+    "Monitor/Generator Monitor Stats/Update Available": "No",
+    "Monitor/Generator Monitor Stats/Update Version": "",
+    "Monitor/Platform Stats/Architecture": "64",
+    "Monitor/Platform Stats/OS Release": "27.2.0",
+    "Monitor/Platform Stats/OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+    "Monitor/Platform Stats/Platform": "Darwin",
+    "Monitor/Platform Stats/Processor": "arm",
+    "Monitor/Platform Stats/System Time": "Monday November 23, 2026 14:00:01",
+    "Outage/Outage Log": "",
+    "Outage/Status": "No outage has occurred since program launched.",
+    "Outage/System In Outage": "No",
+    "Outage/Utility Voltage Maximum": "0 V",
+    "Outage/Utility Voltage Minimum": "0 V",
+    "Status/Battery Voltage": "26.31 V",
+    "Status/Current Average Single Phase": "0.0 A",
+    "Status/Current Average Three phase": "0.0 A",
+    "Status/Engine/ECU Battery Voltage": "0.0 V",
+    "Status/Engine/ECU Coolant Temperature": "32.0 F",
+    "Status/Engine/ECU Fuel Pressure": "0.0 kPA",
+    "Status/Engine/ECU Fuel Rate": "0.0 Liters per hour",
+    "Status/Engine/ECU Intake Manifold Temperature": "32.0 F",
+    "Status/Engine/ECU RPM": "0.0 RPM",
+    "Status/Engine/Generator Current L1": "0.0 A",
+    "Status/Engine/Generator Current L2": "0.0 A",
+    "Status/Engine/Generator Current L3": "0.0 A",
+    "Status/Engine/Generator Frequency": "0.0 Hz",
+    "Status/Engine/Generator Voltage L1 L0": "0.0 V",
+    "Status/Engine/Generator Voltage L1 L2": "0.0 V",
+    "Status/Engine/Generator Voltage L2 L0": "0.0 V",
+    "Status/Engine/Generator Voltage L2 L3": "0.0 V",
+    "Status/Engine/Generator Voltage L3 L0": "0.0 V",
+    "Status/Engine/Generator Voltage L3 L1": "0.0 V",
+    "Status/Generator Status": "Inactive",
+    "Status/Reactive Power L1": "0.0 VAR",
+    "Status/Reactive Power L2": "0.0 VAR",
+    "Status/Reactive Power L3": "0.0 VAR",
+    "Status/Real Power L1": "0.0 W",
+    "Status/Real Power L2": "0.0 W",
+    "Status/Real Power L3": "0.0 W",
+    "Status/Time/Monitor Time": "Monday November 23, 2026 14:00:01",
+    "Status/Total Power Factor": 0.0,
+    "Status/Total Reactive Power": "0.0 W",
+    "Status/Total Real Power": "0.0 W",
+    "Status/Voltage Average L To L": "0.0 V",
+    "Status/Voltage Average L To N": "0.0 V",
+    "gui_status/AltDateformat": false,
+    "gui_status/ExerciseInfo/Day": "Monday",
+    "gui_status/ExerciseInfo/Enabled": false,
+    "gui_status/ExerciseInfo/EnhancedExerciseMode": false,
+    "gui_status/ExerciseInfo/Frequency": "Weekly",
+    "gui_status/ExerciseInfo/Hour": "14",
+    "gui_status/ExerciseInfo/Minute": "00",
+    "gui_status/ExerciseInfo/QuietMode": "Off",
+    "gui_status/MonitorTime": "11/23/2026 14:00",
+    "gui_status/OutputVoltage": 0.0,
+    "gui_status/PlatformStats/Architecture": "64",
+    "gui_status/PlatformStats/OS Release": "27.2.0",
+    "gui_status/PlatformStats/OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+    "gui_status/PlatformStats/Platform": "Darwin",
+    "gui_status/PlatformStats/Processor": "arm",
+    "gui_status/PlatformStats/System Time": "Monday November 23, 2026 14:00:01",
+    "gui_status/RunHours": "0.0",
+    "gui_status/SystemHealth": "OK",
+    "gui_status/UnsentFeedback": "False",
+    "gui_status/UpdateAvailable": false,
+    "gui_status/basestatus": "READY",
+    "gui_status/enginestate": "Inactive",
+    "gui_status/kwOutput": 0.0,
+    "gui_status/switchstate": "Inactive",
+    "gui_status/tiles": "0",
+    "gui_status/version": "2.0.4"
+  }
+}

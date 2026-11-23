@@ -1,0 +1,286 @@
+{
+  "AckAlarms": false,
+  "Actual": "Nexus, Air Cooled",
+  "Controller": "Nexus, Air Cooled",
+  "ExerciseControls": true,
+  "Firmware": "V1.42",
+  "FuelCalculation": false,
+  "FuelConsumption": false,
+  "FuelSensor": false,
+  "Hardware": "V1.02",
+  "Linux": false,
+  "NominalBatteryVolts": "12",
+  "Platform": "Darwin",
+  "PowerGraph": false,
+  "RaspberryPi": false,
+  "RemoteButtons": false,
+  "RemoteCommands": true,
+  "RemoteExercise": true,
+  "RemoteTransfer": true,
+  "ResetAlarms": false,
+  "Sensors": [],
+  "SetGenTime": true,
+  "UtilityVoltage": true,
+  "WriteQuietMode": false,
+  "buttons": [],
+  "code_hash": "8e5c94a",
+  "fueltype": "Natural Gas",
+  "import_config_file": null,
+  "install": "2026-11-23 14:32:58.661556",
+  "model": "G0060331",
+  "nominalKW": "15",
+  "nominalRPM": "3600",
+  "nominalfrequency": "60",
+  "os_bits": "64",
+  "pages": {
+    "about": true,
+    "addons": true,
+    "logs": true,
+    "maint": true,
+    "maintlog": true,
+    "monitor": true,
+    "notifications": true,
+    "outage": true,
+    "settings": true,
+    "status": true
+  },
+  "phase": "1",
+  "platform": "darwin",
+  "python": "3.14.10",
+  "sitename": "SimTest",
+  "tiles": [
+    {
+      "colorzones": [
+        {
+          "max": 11.5,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 12.5,
+          "min": 11.5,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 15.0,
+          "min": 12.5,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 15.5,
+          "min": 15.0,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 16.0,
+          "min": 15.5,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 6,
+      "labels": [
+        0,
+        4,
+        8,
+        12,
+        16
+      ],
+      "maximum": 16.0,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "batteryvolts",
+      "title": "Battery Voltage",
+      "type": "gauge",
+      "units": "V"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 216,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 228,
+          "min": 216,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 252,
+          "min": 228,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 264,
+          "min": 252,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 280,
+          "min": 264,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 10,
+      "labels": [
+        0,
+        50,
+        95,
+        145,
+        190,
+        240,
+        280
+      ],
+      "maximum": 280,
+      "minimum": 0,
+      "subdivisions": 0,
+      "subtype": "linevolts",
+      "title": "Utility Voltage",
+      "type": "gauge",
+      "units": "V"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 216,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 228,
+          "min": 216,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 252,
+          "min": 228,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 264,
+          "min": 252,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 280,
+          "min": 264,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 10,
+      "labels": [
+        0,
+        50,
+        95,
+        145,
+        190,
+        240,
+        280
+      ],
+      "maximum": 280,
+      "minimum": 0,
+      "subdivisions": 0,
+      "subtype": "linevolts",
+      "title": "Output Voltage",
+      "type": "gauge",
+      "units": "V"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 54,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 57,
+          "min": 54,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 63,
+          "min": 57,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 66,
+          "min": 63,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 70,
+          "min": 66,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 7,
+      "labels": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "maximum": 70,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "frequency",
+      "title": "Frequency",
+      "type": "gauge",
+      "units": "Hz"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 3525,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 3550,
+          "min": 3525,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 3650,
+          "min": 3550,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 3675,
+          "min": 3650,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 3780,
+          "min": 3675,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 4,
+      "labels": [
+        0,
+        900,
+        1800,
+        2700,
+        3600
+      ],
+      "maximum": 3780,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "rpm",
+      "title": "RPM",
+      "type": "gauge",
+      "units": ""
+    }
+  ],
+  "version": "2.0.4",
+  "zone": "EDT"
+}

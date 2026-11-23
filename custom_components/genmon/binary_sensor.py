@@ -18,7 +18,7 @@ from .coordinator import GenmonCoordinator
 from .entity import GenmonEntity, should_add_entity
 
 _LOGGER = logging.getLogger(__name__)
-_UNSET = object()  # sentinel distinct from any real is_on value
+_UNSET = object()  # nothing written yet
 
 DEVICE_CLASS_MAP = {
     "power": BinarySensorDeviceClass.POWER,
@@ -39,7 +39,7 @@ async def async_setup_entry(
     known_ids: set[str] = set()
 
     controller_type = coordinator.entities.get("controller_type")
-    capabilities = coordinator.entities.get("capabilities", {})
+    capabilities = coordinator.capabilities
     entity_defs = coordinator.entities.get("binary_sensors", [])
     for defn in entity_defs:
         if should_add_entity(defn, controller_type, capabilities):
@@ -51,7 +51,7 @@ async def async_setup_entry(
     @callback
     def _add_new(new_defs: list[dict]) -> None:
         ct = coordinator.entities.get("controller_type")
-        caps = coordinator.entities.get("capabilities", {})
+        caps = coordinator.capabilities
         async_add_entities([
             GenmonBinarySensor(coordinator, d)
             for d in new_defs
@@ -85,15 +85,15 @@ class GenmonBinarySensor(GenmonEntity, BinarySensorEntity):
         self._payload_on_not_empty = defn.get("payload_on_not_empty", False)
         self._payload_on_gt = defn.get("payload_on_gt")
         self._payload_off_invert = defn.get("payload_off_invert", False)
-        self._prev_is_on = _UNSET
+        self._last_written = _UNSET
 
     @callback
     def _handle_coordinator_update(self) -> None:
-        """Write HA state only when is_on actually changes."""
-        new_val = self.is_on
-        if self._prev_is_on is not _UNSET and new_val == self._prev_is_on:
+        """Write HA state only when is_on or availability changes."""
+        new_val = (self.available, self.is_on)
+        if self._last_written is not _UNSET and new_val == self._last_written:
             return
-        self._prev_is_on = new_val
+        self._last_written = new_val
         self.async_write_ha_state()
 
     @property

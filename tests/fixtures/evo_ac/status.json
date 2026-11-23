@@ -1,0 +1,362 @@
+{
+  "state": {
+    "Maintenance": {
+      "Controller Detected": "Evolution, Air Cooled",
+      "Controller Settings": {
+        "Calibrate Current 1": {
+          "type": "int",
+          "unit": "",
+          "value": 1453
+        },
+        "Calibrate Current 2": {
+          "type": "int",
+          "unit": "",
+          "value": 1480
+        },
+        "Calibrate Volts": {
+          "type": "int",
+          "unit": "",
+          "value": 1016
+        },
+        "Nominal Line Voltage": "240 V",
+        "Rated Max Power": "11 kW"
+      },
+      "Engine Displacement": {
+        "type": "float",
+        "unit": "cc",
+        "value": 530.0
+      },
+      "Exercise": {
+        "Exercise Time": "Weekly Tuesday 16:48 Quiet Mode Off"
+      },
+      "Fuel Consumption in last 30 days": {
+        "type": "float",
+        "unit": "cubic feet",
+        "value": 0.0
+      },
+      "Fuel Type": "Natural Gas",
+      "Generator Phase": "1",
+      "Generator Serial Number": "1234567890",
+      "Model": "G0070330",
+      "Nominal Frequency": "60 Hz",
+      "Nominal RPM": "3600",
+      "Rated kW": "11 kW",
+      "Run Hours in last 30 days": {
+        "type": "float",
+        "unit": "h",
+        "value": 0.0
+      },
+      "Service": {
+        "Battery Check Due": "03/28/2021 ",
+        "Firmware Version": "V1.16",
+        "Hardware Version": "V1.06",
+        "Service A Due": "171 hrs or 03/25/2021 ",
+        "Service B Due": "299 hrs or 03/23/2021 ",
+        "Total Run Hours": {
+          "type": "float",
+          "unit": "h",
+          "value": 100.0
+        }
+      },
+      "kW Hours in last 30 days": {
+        "type": "float",
+        "unit": "kWh",
+        "value": 0.0
+      }
+    },
+    "Monitor": {
+      "Communication Stats": {
+        "Average Transaction Time": "0.0121 sec",
+        "CRC Errors": "0 ",
+        "CRC Percent Errors": "0.00%",
+        "Comm Restarts": "0",
+        "Discarded Bytes": "0",
+        "Invalid Data": 0,
+        "Modbus Exceptions": 0,
+        "Modbus Transport": "TCP",
+        "Packet Count": "M: 589, S: 588",
+        "Packets Per Second": "161.04",
+        "Sync Errors": 0,
+        "Timeout Percent Errors": "0.00%",
+        "Validation Errors": 0
+      },
+      "Generator Monitor Stats": {
+        "Generator Monitor Version": "2.0.4",
+        "Monitor Health": "OK",
+        "Power log file size": "0.00 MB of 15.00 MB",
+        "Run time": "Generator Monitor running for 0:00:07.",
+        "Update Available": "No",
+        "Update Version": ""
+      },
+      "Platform Stats": {
+        "Architecture": "64",
+        "OS Release": "27.2.0",
+        "OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+        "Platform": "Darwin",
+        "Processor": "arm",
+        "System Time": "Monday November 23, 2026 14:32:47"
+      }
+    },
+    "Outage": {
+      "Outage Log": "",
+      "Startup Delay": {
+        "type": "int",
+        "unit": "s",
+        "value": 5
+      },
+      "Status": "System in outage since 2026-11-23 14:32:41",
+      "System In Outage": "Yes",
+      "Utility Voltage Maximum": {
+        "type": "int",
+        "unit": "V",
+        "value": 0
+      },
+      "Utility Voltage Minimum": {
+        "type": "int",
+        "unit": "V",
+        "value": 0
+      }
+    },
+    "Status": {
+      "Engine": {
+        "Active Rotor Poles (Calculated)": {
+          "type": "int",
+          "unit": "",
+          "value": 0
+        },
+        "Battery Charger Current": {
+          "type": "int",
+          "unit": "mA",
+          "value": 479
+        },
+        "Battery Voltage": {
+          "type": "float",
+          "unit": "V",
+          "value": 13.0
+        },
+        "Current L1": {
+          "type": "float",
+          "unit": "A",
+          "value": 0.0
+        },
+        "Current L2": {
+          "type": "float",
+          "unit": "A",
+          "value": 0.0
+        },
+        "Engine State": "Stopped in Alarm",
+        "Frequency": {
+          "type": "float",
+          "unit": "Hz",
+          "value": 0.0
+        },
+        "Output Current": {
+          "type": "float",
+          "unit": "A",
+          "value": 0.0
+        },
+        "Output Power (Single Phase)": {
+          "type": "float",
+          "unit": "kW",
+          "value": 0.0
+        },
+        "Output Voltage": {
+          "type": "int",
+          "unit": "V",
+          "value": 0
+        },
+        "RPM": {
+          "type": "int",
+          "unit": "",
+          "value": 3601
+        },
+        "Switch State": "System in Alarm",
+        "System In Alarm": "High Temperature"
+      },
+      "Last Log Entries": {
+        "Logs": {
+          "Alarm Log": "07/08/20 13:18:46 High Temperature : Alarm Code: 1400",
+          "Run Log": "07/08/20 13:18:46 Stopped - Alarm ",
+          "Service Log": "03/28/20 09:55:33 Battery Maintained "
+        }
+      },
+      "Line": {
+        "Utility Max Voltage": {
+          "type": "int",
+          "unit": "V",
+          "value": 0
+        },
+        "Utility Min Voltage": {
+          "type": "int",
+          "unit": "V",
+          "value": 0
+        },
+        "Utility Threshold Voltage": {
+          "type": "int",
+          "unit": "V",
+          "value": 171
+        },
+        "Utility Voltage": {
+          "type": "int",
+          "unit": "V",
+          "value": 0
+        }
+      },
+      "Time": {
+        "Generator Time": "Wednesday July 8, 2020 13:18",
+        "Monitor Time": "Monday November 23, 2026 14:32:47"
+      }
+    },
+    "gui_status": {
+      "AltDateformat": false,
+      "BatteryVoltage": "13.00 V",
+      "ExerciseInfo": {
+        "Day": "Tuesday",
+        "Enabled": true,
+        "EnhancedExerciseMode": "False",
+        "Frequency": "Weekly",
+        "Hour": "16",
+        "Minute": "48",
+        "QuietMode": "Off"
+      },
+      "Frequency": "0.00 Hz",
+      "MonitorTime": "11/23/2026 14:32",
+      "OutputVoltage": "0 V",
+      "PlatformStats": {
+        "Architecture": "64",
+        "OS Release": "27.2.0",
+        "OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+        "Platform": "Darwin",
+        "Processor": "arm",
+        "System Time": "Monday November 23, 2026 14:32:47"
+      },
+      "RPM": 3601,
+      "RunHours": "100.00",
+      "SystemHealth": "OK",
+      "UnsentFeedback": "False",
+      "UpdateAvailable": false,
+      "UtilityVoltage": "0 V",
+      "basestatus": "ALARM",
+      "enginestate": "Stopped in Alarm",
+      "kwOutput": "0 kW",
+      "switchstate": "System in Alarm",
+      "tiles": {
+        "subtype": "powergraph",
+        "text": "0",
+        "title": "kW Output",
+        "type": "graph",
+        "value": "0"
+      },
+      "version": "2.0.4"
+    }
+  },
+  "values": {
+    "Maintenance/Controller Detected": "Evolution, Air Cooled",
+    "Maintenance/Controller Settings/Calibrate Current 1": 1453,
+    "Maintenance/Controller Settings/Calibrate Current 2": 1480,
+    "Maintenance/Controller Settings/Calibrate Volts": 1016,
+    "Maintenance/Controller Settings/Nominal Line Voltage": "240 V",
+    "Maintenance/Controller Settings/Rated Max Power": "11 kW",
+    "Maintenance/Engine Displacement": "530.0 cc",
+    "Maintenance/Exercise/Exercise Time": "Weekly Tuesday 16:48 Quiet Mode Off",
+    "Maintenance/Fuel Consumption in last 30 days": "0.0 cubic feet",
+    "Maintenance/Fuel Type": "Natural Gas",
+    "Maintenance/Generator Phase": "1",
+    "Maintenance/Generator Serial Number": "1234567890",
+    "Maintenance/Model": "G0070330",
+    "Maintenance/Nominal Frequency": "60 Hz",
+    "Maintenance/Nominal RPM": "3600",
+    "Maintenance/Rated kW": "11 kW",
+    "Maintenance/Run Hours in last 30 days": "0.0 h",
+    "Maintenance/Service/Battery Check Due": "03/28/2021 ",
+    "Maintenance/Service/Firmware Version": "V1.16",
+    "Maintenance/Service/Hardware Version": "V1.06",
+    "Maintenance/Service/Service A Due": "171 hrs or 03/25/2021 ",
+    "Maintenance/Service/Service B Due": "299 hrs or 03/23/2021 ",
+    "Maintenance/Service/Total Run Hours": "100.0 h",
+    "Maintenance/kW Hours in last 30 days": "0.0 kWh",
+    "Monitor/Communication Stats/Average Transaction Time": "0.0121 sec",
+    "Monitor/Communication Stats/CRC Errors": "0 ",
+    "Monitor/Communication Stats/CRC Percent Errors": "0.00%",
+    "Monitor/Communication Stats/Comm Restarts": "0",
+    "Monitor/Communication Stats/Discarded Bytes": "0",
+    "Monitor/Communication Stats/Invalid Data": 0,
+    "Monitor/Communication Stats/Modbus Exceptions": 0,
+    "Monitor/Communication Stats/Modbus Transport": "TCP",
+    "Monitor/Communication Stats/Packet Count": "M: 589, S: 588",
+    "Monitor/Communication Stats/Packets Per Second": "161.04",
+    "Monitor/Communication Stats/Sync Errors": 0,
+    "Monitor/Communication Stats/Timeout Percent Errors": "0.00%",
+    "Monitor/Communication Stats/Validation Errors": 0,
+    "Monitor/Generator Monitor Stats/Generator Monitor Version": "2.0.4",
+    "Monitor/Generator Monitor Stats/Monitor Health": "OK",
+    "Monitor/Generator Monitor Stats/Power log file size": "0.00 MB of 15.00 MB",
+    "Monitor/Generator Monitor Stats/Run time": "Generator Monitor running for 0:00:07.",
+    "Monitor/Generator Monitor Stats/Update Available": "No",
+    "Monitor/Generator Monitor Stats/Update Version": "",
+    "Monitor/Platform Stats/Architecture": "64",
+    "Monitor/Platform Stats/OS Release": "27.2.0",
+    "Monitor/Platform Stats/OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+    "Monitor/Platform Stats/Platform": "Darwin",
+    "Monitor/Platform Stats/Processor": "arm",
+    "Monitor/Platform Stats/System Time": "Monday November 23, 2026 14:32:47",
+    "Outage/Outage Log": "",
+    "Outage/Startup Delay": "5 s",
+    "Outage/Status": "System in outage since 2026-11-23 14:32:41",
+    "Outage/System In Outage": "Yes",
+    "Outage/Utility Voltage Maximum": "0 V",
+    "Outage/Utility Voltage Minimum": "0 V",
+    "Status/Engine/Active Rotor Poles (Calculated)": 0,
+    "Status/Engine/Battery Charger Current": "479 mA",
+    "Status/Engine/Battery Voltage": "13.0 V",
+    "Status/Engine/Current L1": "0.0 A",
+    "Status/Engine/Current L2": "0.0 A",
+    "Status/Engine/Engine State": "Stopped in Alarm",
+    "Status/Engine/Frequency": "0.0 Hz",
+    "Status/Engine/Output Current": "0.0 A",
+    "Status/Engine/Output Power (Single Phase)": "0.0 kW",
+    "Status/Engine/Output Voltage": "0 V",
+    "Status/Engine/RPM": 3601,
+    "Status/Engine/Switch State": "System in Alarm",
+    "Status/Engine/System In Alarm": "High Temperature",
+    "Status/Last Log Entries/Logs/Alarm Log": "07/08/20 13:18:46 High Temperature : Alarm Code: 1400",
+    "Status/Last Log Entries/Logs/Run Log": "07/08/20 13:18:46 Stopped - Alarm ",
+    "Status/Last Log Entries/Logs/Service Log": "03/28/20 09:55:33 Battery Maintained ",
+    "Status/Line/Utility Max Voltage": "0 V",
+    "Status/Line/Utility Min Voltage": "0 V",
+    "Status/Line/Utility Threshold Voltage": "171 V",
+    "Status/Line/Utility Voltage": "0 V",
+    "Status/Time/Generator Time": "Wednesday July 8, 2020 13:18",
+    "Status/Time/Monitor Time": "Monday November 23, 2026 14:32:47",
+    "gui_status/AltDateformat": false,
+    "gui_status/BatteryVoltage": "13.00 V",
+    "gui_status/ExerciseInfo/Day": "Tuesday",
+    "gui_status/ExerciseInfo/Enabled": true,
+    "gui_status/ExerciseInfo/EnhancedExerciseMode": "False",
+    "gui_status/ExerciseInfo/Frequency": "Weekly",
+    "gui_status/ExerciseInfo/Hour": "16",
+    "gui_status/ExerciseInfo/Minute": "48",
+    "gui_status/ExerciseInfo/QuietMode": "Off",
+    "gui_status/Frequency": "0.00 Hz",
+    "gui_status/MonitorTime": "11/23/2026 14:32",
+    "gui_status/OutputVoltage": "0 V",
+    "gui_status/PlatformStats/Architecture": "64",
+    "gui_status/PlatformStats/OS Release": "27.2.0",
+    "gui_status/PlatformStats/OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+    "gui_status/PlatformStats/Platform": "Darwin",
+    "gui_status/PlatformStats/Processor": "arm",
+    "gui_status/PlatformStats/System Time": "Monday November 23, 2026 14:32:47",
+    "gui_status/RPM": 3601,
+    "gui_status/RunHours": "100.00",
+    "gui_status/SystemHealth": "OK",
+    "gui_status/UnsentFeedback": "False",
+    "gui_status/UpdateAvailable": false,
+    "gui_status/UtilityVoltage": "0 V",
+    "gui_status/basestatus": "ALARM",
+    "gui_status/enginestate": "Stopped in Alarm",
+    "gui_status/kwOutput": "0 kW",
+    "gui_status/switchstate": "System in Alarm",
+    "gui_status/tiles": "0",
+    "gui_status/version": "2.0.4"
+  }
+}

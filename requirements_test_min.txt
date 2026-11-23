@@ -1,0 +1,7 @@
+# Test requirements for the minimum Home Assistant version (hacs.json):
+# pytest-homeassistant-custom-component 0.13.182 = Home Assistant 2024.11.1,
+# Python 3.12. josepy and zeroconf are pinned to what that release used
+# (newer versions don't import with it).
+pytest-homeassistant-custom-component==0.13.182
+josepy<2
+zeroconf==0.136.0

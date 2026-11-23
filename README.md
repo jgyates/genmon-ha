@@ -21,7 +21,7 @@ This integration communicates with the **genhalink** addon running on your genmo
 
 - **genmon** running on a Raspberry Pi (or similar) connected to your Generac generator
 - **genhalink addon** enabled in genmon (see setup below)
-- **Home Assistant** 2024.1.0 or later
+- **Home Assistant** 2024.11.0 or later
 
 ## Installation
 
@@ -134,9 +134,12 @@ After setup, you can configure options via the integration's **Configure** butto
 | Start Exercise | Button | Trigger exercise cycle |
 | Set Generator Time | Button | Sync generator clock |
 | Quiet Mode | Switch | Toggle quiet mode (liquid-cooled Evolution) |
-| Exercise Frequency | Select | Weekly/BiWeekly/Monthly |
-| Exercise Day of Week | Select | Day selection for exercise |
+| Exercise Frequency | Select | Weekly; BiWeekly/Monthly on controllers that support them |
+| Exercise Day of Week | Select | Day of the week for weekly and biweekly exercise |
+| Exercise Day of Month | Number | Day of the month for monthly exercise (controllers that support it) |
 | Exercise Hour/Minute | Number | Time of day for exercise |
+| Controller buttons | Button | Buttons the controller defines (e.g. Reset Maintenance); buttons that need a passcode use the Button passcode option |
+| Controller settings | Number | Controller values set through its buttons (e.g. Exercise Duration, Start-up Delay on liquid-cooled Evolution), limited to the range the controller accepts. Shows the last value set from Home Assistant |
 
 ## Native vs MQTT Integration
 
@@ -161,8 +164,8 @@ Both integrations work independently. You can use either or both simultaneously.
 - Check firewall rules on the Pi: `sudo ufw allow 9083/tcp`
 
 ### Invalid API key
-- Open genmon Settings → Home Assistant Integration (Native)
-- Copy the current API key and re-enter it in HA
+- If the key changes after setup, Home Assistant shows a "Reauthentication required" notification for the integration; enter the new key there
+- The current key is in genmon Settings → Home Assistant Integration (Native)
 
 ### Missing entities
 - Some entities are controller-specific (Evolution, Nexus, H-100, PowerZone)
@@ -173,6 +176,24 @@ Both integrations work independently. You can use either or both simultaneously.
 On the genmon Pi:
 ```bash
 tail -f /var/log/genhalink.log
+```
+
+## Development
+
+The tests use [pytest-homeassistant-custom-component](https://github.com/MatthewFlamm/pytest-homeassistant-custom-component) (Python 3.14):
+
+```bash
+python3.14 -m venv .venv
+.venv/bin/pip install -r requirements_test.txt
+.venv/bin/pytest
+```
+
+The GitHub CI also runs them on the minimum Home Assistant version (2024.11, Python 3.12) with `requirements_test_min.txt`.
+
+They run against real genhalink answers in `tests/fixtures/<controller>/`, captured from genmon's generator simulator. To capture them again after genhalink or its entity definitions change (needs a checkout of the [genmon](https://github.com/jgyates/genmon) repository):
+
+```bash
+python3 tests/capture_fixtures.py ../genmon
 ```
 
 ## License

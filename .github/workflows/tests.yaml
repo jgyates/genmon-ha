@@ -1,0 +1,37 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pytest:
+    name: "pytest (${{ matrix.name }})"
+    runs-on: "ubuntu-latest"
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: "Home Assistant 2026.10"
+            python: "3.14"
+            requirements: "requirements_test.txt"
+          # the minimum version in hacs.json: keeps newer Home Assistant APIs
+          # from slipping in unnoticed
+          - name: "Home Assistant 2024.11, minimum"
+            python: "3.12"
+            requirements: "requirements_test_min.txt"
+    steps:
+      - uses: "actions/checkout@v4"
+      - uses: "actions/setup-python@v5"
+        with:
+          python-version: "${{ matrix.python }}"
+          cache: "pip"
+          cache-dependency-path: "${{ matrix.requirements }}"
+      - name: Install test requirements
+        run: pip install -r "${{ matrix.requirements }}"
+      - name: Run tests
+        run: pytest

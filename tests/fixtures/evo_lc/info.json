@@ -1,0 +1,509 @@
+{
+  "AckAlarms": false,
+  "Actual": "Evolution, Liquid Cooled",
+  "Controller": "Evolution, Liquid Cooled",
+  "ExerciseControls": true,
+  "Firmware": "V1.46",
+  "FuelCalculation": false,
+  "FuelConsumption": true,
+  "FuelSensor": true,
+  "Hardware": "V1.05",
+  "Linux": false,
+  "NominalBatteryVolts": "12",
+  "Platform": "Darwin",
+  "PowerGraph": true,
+  "RaspberryPi": false,
+  "RemoteButtons": true,
+  "RemoteCommands": true,
+  "RemoteExercise": true,
+  "RemoteTransfer": true,
+  "ResetAlarms": true,
+  "Sensors": [],
+  "SetGenTime": true,
+  "UtilityVoltage": true,
+  "WriteQuietMode": true,
+  "buttons": [
+    {
+      "command_sequence": [
+        {
+          "reg": "0003",
+          "value": "0008"
+        }
+      ],
+      "information": "This file is used for the buttons on an Evolution Liquid Cooled controller",
+      "onewordcommand": "resetmaintwarn",
+      "title": "Reset Maintenance Warnings"
+    },
+    {
+      "command_sequence": [
+        {
+          "reg": "0003",
+          "value": "0009"
+        }
+      ],
+      "onewordcommand": "resetmaintperiods",
+      "title": "Reset Maintenance Periods"
+    },
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^(?:([1][2-9])|([2-5][0-9])|([6][0]))$",
+          "input_title": "Minutes",
+          "length": 2,
+          "reg": "023e",
+          "tooltip": "The duration of the exercise cycle. This must be a whole number between 12 and 60 minutes.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "exerciseduration",
+      "title": "Exercise Duration"
+    },
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^([5-9]|[1-9][0-9]{1,2}|1[0-4][0-9]{2}|1500)$",
+          "input_title": "Seconds",
+          "length": 2,
+          "reg": "0239",
+          "tooltip": "The delay between the loss of utility power and the cranking of the generator. This must be a whole number between 5 and 1500 seconds.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "startupdelay",
+      "title": "Start Up Delay"
+    },
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^([2-9]|[1-9][0-9]{1,2}|1[0-4][0-9]{2}|1500)$",
+          "input_title": "Seconds",
+          "length": 2,
+          "reg": "0238",
+          "tooltip": "The delay between the start of the generator and the activation of the transfer switch when utility power has been lost. This must be a whole number between 2 and 1500 seconds.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "warmupdelay",
+      "title": "Warm Up Delay"
+    },
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^([0-9]|[1-9][0-9]|[12][0-9]{2}|3[0-3][0-9]|34[0-2])$",
+          "input_title": "Volts",
+          "length": 2,
+          "reg": "0011",
+          "tooltip": "The utility voltage that denotes an outage. Any utility voltage below this value will trigger the generator to start (After the Start Delay has expired). This must be a whole number between 0 and 342.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "thresholdvolts",
+      "title": "Threshold Volts"
+    },
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^(17[5-9]|1[89][0-9]|2[0-9]{2}|3[0-3][0-9]|34[0-2])$",
+          "input_title": "Volts",
+          "length": 2,
+          "reg": "023b",
+          "tooltip": "The utility voltage that denotes an outage is over.. This must be a whole number between 175 and 342.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "pickupvolts",
+      "title": "Pickup Volts"
+    }
+  ],
+  "code_hash": "8e5c94a",
+  "fueltype": "Diesel",
+  "import_config_file": null,
+  "install": "2026-11-23 14:33:17.535429",
+  "model": "RD01523ADAE",
+  "nominalKW": "30",
+  "nominalRPM": "1800",
+  "nominalfrequency": "60",
+  "os_bits": "64",
+  "pages": {
+    "about": true,
+    "addons": true,
+    "logs": true,
+    "maint": true,
+    "maintlog": true,
+    "monitor": true,
+    "notifications": true,
+    "outage": true,
+    "settings": true,
+    "status": true
+  },
+  "phase": "Unknown",
+  "platform": "darwin",
+  "python": "3.14.10",
+  "sitename": "SimTest",
+  "tiles": [
+    {
+      "colorzones": [
+        {
+          "max": 11.5,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 12.5,
+          "min": 11.5,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 15.0,
+          "min": 12.5,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 15.5,
+          "min": 15.0,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 16.0,
+          "min": 15.5,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 6,
+      "labels": [
+        0,
+        4,
+        8,
+        12,
+        16
+      ],
+      "maximum": 16.0,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "batteryvolts",
+      "title": "Battery Voltage",
+      "type": "gauge",
+      "units": "V"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 216,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 228,
+          "min": 216,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 252,
+          "min": 228,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 264,
+          "min": 252,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 280,
+          "min": 264,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 10,
+      "labels": [
+        0,
+        50,
+        95,
+        145,
+        190,
+        240,
+        280
+      ],
+      "maximum": 280,
+      "minimum": 0,
+      "subdivisions": 0,
+      "subtype": "linevolts",
+      "title": "Utility Voltage",
+      "type": "gauge",
+      "units": "V"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 216,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 228,
+          "min": 216,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 252,
+          "min": 228,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 264,
+          "min": 252,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 280,
+          "min": 264,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 10,
+      "labels": [
+        0,
+        50,
+        95,
+        145,
+        190,
+        240,
+        280
+      ],
+      "maximum": 280,
+      "minimum": 0,
+      "subdivisions": 0,
+      "subtype": "linevolts",
+      "title": "Output Voltage",
+      "type": "gauge",
+      "units": "V"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 54,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 57,
+          "min": 54,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 63,
+          "min": 57,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 66,
+          "min": 63,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 70,
+          "min": 66,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 7,
+      "labels": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "maximum": 70,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "frequency",
+      "title": "Frequency",
+      "type": "gauge",
+      "units": "Hz"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 1725,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 1750,
+          "min": 1725,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 1850,
+          "min": 1750,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 1875,
+          "min": 1850,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 1890,
+          "min": 1875,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 4,
+      "labels": [
+        0,
+        450,
+        900,
+        1350,
+        1800
+      ],
+      "maximum": 1890,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "rpm",
+      "title": "RPM",
+      "type": "gauge",
+      "units": ""
+    },
+    {
+      "colorzones": [
+        {
+          "max": 24,
+          "min": 0,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 28,
+          "min": 24,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 36,
+          "min": 28,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 12,
+      "labels": [
+        0,
+        10,
+        20,
+        30,
+        36
+      ],
+      "maximum": 36,
+      "minimum": 0,
+      "subdivisions": 5,
+      "subtype": "power",
+      "title": "Power Output",
+      "type": "gauge",
+      "units": "kW"
+    },
+    {
+      "colorzones": null,
+      "default-size": 2,
+      "divisions": null,
+      "labels": null,
+      "maximum": 36.0,
+      "minimum": 0,
+      "subdivisions": null,
+      "subtype": "powergraph",
+      "title": "kW Output",
+      "type": "graph",
+      "units": ""
+    },
+    {
+      "colorzones": [
+        {
+          "max": 69.8,
+          "min": 0,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 108.8,
+          "min": 69.8,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 149.0,
+          "min": 108.8,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": null,
+      "divisions": 14,
+      "labels": [
+        0,
+        14,
+        28,
+        42,
+        56,
+        70,
+        84,
+        98,
+        112,
+        126,
+        140,
+        149
+      ],
+      "maximum": 149.0,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "temperature",
+      "title": "Ambient Temp",
+      "type": "gauge",
+      "units": "F"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 10,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 25,
+          "min": 10,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 100,
+          "min": 25,
+          "strokeStyle": "#30B32D"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 10,
+      "labels": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80,
+        90,
+        100
+      ],
+      "maximum": 100,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "fuel",
+      "title": "Fuel Sensor",
+      "type": "gauge",
+      "units": "%"
+    }
+  ],
+  "version": "2.0.4",
+  "zone": "EDT"
+}

@@ -12,6 +12,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from .const import DOMAIN
 from .coordinator import GenmonCoordinator
 from .entity import GenmonEntity, should_add_entity
+from .exercise import quiet_mode_from_state
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -27,7 +28,7 @@ async def async_setup_entry(
     known_ids: set[str] = set()
 
     controller_type = coordinator.entities.get("controller_type")
-    capabilities = coordinator.entities.get("capabilities", {})
+    capabilities = coordinator.capabilities
     entity_defs = coordinator.entities.get("switches", [])
     for defn in entity_defs:
         if should_add_entity(defn, controller_type, capabilities):
@@ -39,7 +40,7 @@ async def async_setup_entry(
     @callback
     def _add_new(new_defs: list[dict]) -> None:
         ct = coordinator.entities.get("controller_type")
-        caps = coordinator.entities.get("capabilities", {})
+        caps = coordinator.capabilities
         async_add_entities([
             GenmonSwitch(coordinator, d)
             for d in new_defs
@@ -69,24 +70,36 @@ class GenmonSwitch(GenmonEntity, SwitchEntity):
     def is_on(self) -> bool | None:
         if self.coordinator.data is None:
             return None
-        parts = self._state_path.split("/") if self._state_path else []
+        value = self._get_state_value()
+        if value is None and self._defn.get("entity_id") == "quiet_mode":
+            # older genmon defines a path it never reports
+            value = quiet_mode_from_state(self.coordinator.data)
+        if value is None:
+            return None
+        value = str(value).strip()
+        if value == self._payload_on:
+            return True
+        if value == self._payload_off:
+            return False
+        return None  # e.g. "Unknown"
+
+    def _get_state_value(self) -> Any | None:
+        """The value at state_path, or None if genmon doesn't report it."""
+        if not self._state_path:
+            return None
         data = self.coordinator.data
-        for part in parts:
-            if isinstance(data, dict):
-                data = data.get(part)
-            else:
+        for part in self._state_path.split("/"):
+            if not isinstance(data, dict):
                 return None
+            data = data.get(part)
             if data is None:
                 return None
-        data = self._unwrap_num_json(data)
-        return str(data).strip() == self._payload_on
+        return self._unwrap_num_json(data)
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         _LOGGER.debug("Switch ON %s: %s", self.name, self._command_on)
-        await self.coordinator.api.send_command(self._command_on)
-        await self.coordinator.async_request_refresh()
+        await self.coordinator.async_send_command(self._command_on)
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         _LOGGER.debug("Switch OFF %s: %s", self.name, self._command_off)
-        await self.coordinator.api.send_command(self._command_off)
-        await self.coordinator.async_request_refresh()
+        await self.coordinator.async_send_command(self._command_off)

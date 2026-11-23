@@ -1,0 +1,329 @@
+{
+  "AckAlarms": false,
+  "Actual": "Kohler APM603",
+  "Controller": "Kohler APM603",
+  "ExerciseControls": false,
+  "FuelCalculation": false,
+  "FuelConsumption": false,
+  "FuelSensor": false,
+  "Linux": false,
+  "NominalBatteryVolts": 24,
+  "Platform": "Darwin",
+  "PowerGraph": true,
+  "RaspberryPi": false,
+  "RemoteButtons": false,
+  "RemoteCommands": false,
+  "RemoteExercise": false,
+  "RemoteTransfer": false,
+  "ResetAlarms": false,
+  "Sensors": [],
+  "SetGenTime": false,
+  "UtilityVoltage": false,
+  "WriteQuietMode": false,
+  "buttons": [],
+  "code_hash": "8e5c94a",
+  "fueltype": "Diesel",
+  "import_config_file": "Kohler_APM603.json",
+  "install": "2026-11-23 13:59:54.296350",
+  "model": "Kohler APM603",
+  "nominalKW": "300",
+  "nominalRPM": 1800,
+  "nominalfrequency": 60,
+  "os_bits": "64",
+  "pages": {
+    "about": true,
+    "addons": true,
+    "logs": false,
+    "maint": true,
+    "maintlog": true,
+    "monitor": true,
+    "notifications": true,
+    "outage": false,
+    "settings": true,
+    "status": true
+  },
+  "phase": 3,
+  "platform": "darwin",
+  "python": "3.14.10",
+  "sitename": "SimTest",
+  "tiles": [
+    {
+      "colorzones": [
+        {
+          "max": 23.0,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 25.0,
+          "min": 23.0,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 30.0,
+          "min": 25.0,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 31.0,
+          "min": 30.0,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 30.0,
+          "min": 31.0,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 6,
+      "labels": [
+        0,
+        7,
+        14,
+        21,
+        28
+      ],
+      "maximum": 30.0,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "batteryvolts",
+      "title": "Battery Voltage",
+      "type": "gauge",
+      "units": "V"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 216,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 228,
+          "min": 216,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 252,
+          "min": 228,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 264,
+          "min": 252,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 300.0,
+          "min": 264,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 10,
+      "labels": [
+        0,
+        50,
+        95,
+        145,
+        190,
+        240,
+        300
+      ],
+      "maximum": 300.0,
+      "minimum": 0,
+      "subdivisions": 0,
+      "subtype": "linevolts",
+      "title": "Output Voltage",
+      "type": "gauge",
+      "units": "V"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 54,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 57,
+          "min": 54,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 63,
+          "min": 57,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 66,
+          "min": 63,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 75.0,
+          "min": 66,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 7,
+      "labels": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80
+      ],
+      "maximum": 75.0,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "frequency",
+      "title": "Frequency",
+      "type": "gauge",
+      "units": "Hz"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 1725,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 1750,
+          "min": 1725,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 1850,
+          "min": 1750,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 1875,
+          "min": 1850,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 2250.0,
+          "min": 1875,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 4,
+      "labels": [
+        0,
+        450,
+        900,
+        1350,
+        1800
+      ],
+      "maximum": 2250.0,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "rpm",
+      "title": "RPM",
+      "type": "gauge",
+      "units": "RPM"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 179.6,
+          "min": 0,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 238.6,
+          "min": 179.6,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 298.4,
+          "min": 238.6,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": null,
+      "divisions": 29,
+      "labels": [
+        0,
+        29,
+        58,
+        87,
+        116,
+        145,
+        174,
+        203,
+        232,
+        261,
+        298
+      ],
+      "maximum": 298.4,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "temperature",
+      "title": "Coolant Temp",
+      "type": "gauge",
+      "units": "F"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 240,
+          "min": 0,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 285,
+          "min": 240,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 360,
+          "min": 285,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 12,
+      "labels": [
+        0,
+        60,
+        120,
+        180,
+        240,
+        300,
+        375
+      ],
+      "maximum": 375.0,
+      "minimum": 0,
+      "subdivisions": 5,
+      "subtype": "power",
+      "title": "Power 1",
+      "type": "gauge",
+      "units": "kW"
+    },
+    {
+      "colorzones": null,
+      "default-size": 2,
+      "divisions": null,
+      "labels": null,
+      "maximum": 375.0,
+      "minimum": 0,
+      "subdivisions": null,
+      "subtype": "powergraph",
+      "title": "Power 2",
+      "type": "graph",
+      "units": "kW"
+    }
+  ],
+  "version": "2.0.4",
+  "zone": "EDT"
+}

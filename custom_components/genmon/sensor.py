@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from typing import Any
 
 from homeassistant.components.sensor import (
@@ -19,9 +20,13 @@ from .coordinator import GenmonCoordinator
 from .entity import GenmonEntity, should_add_entity
 
 _LOGGER = logging.getLogger(__name__)
-_UNSET = object()  # sentinel distinct from any real native_value
+_UNSET = object()  # nothing written yet
 
 UNIT_FIXUP = {"C": "°C", "F": "°F", "K": "K"}
+
+# genmon's text for a value it can't determine, alone or with the unit it
+# would have (e.g. "Unknown", "Unknown V", "Unknown kW")
+GENMON_UNKNOWN = re.compile(r"unknown(\s+\S+)?", re.IGNORECASE)
 
 DEVICE_CLASS_MAP = {
     "voltage": SensorDeviceClass.VOLTAGE,
@@ -58,7 +63,7 @@ async def async_setup_entry(
     known_ids: set[str] = set()
 
     controller_type = coordinator.entities.get("controller_type")
-    capabilities = coordinator.entities.get("capabilities", {})
+    capabilities = coordinator.capabilities
     entity_defs = coordinator.entities.get("sensors", [])
     for defn in entity_defs:
         if should_add_entity(defn, controller_type, capabilities):
@@ -70,7 +75,7 @@ async def async_setup_entry(
     @callback
     def _add_new(new_defs: list[dict]) -> None:
         ct = coordinator.entities.get("controller_type")
-        caps = coordinator.entities.get("capabilities", {})
+        caps = coordinator.capabilities
         async_add_entities([
             GenmonSensor(coordinator, d)
             for d in new_defs
@@ -116,15 +121,19 @@ class GenmonSensor(GenmonEntity, SensorEntity):
             self._attr_native_unit_of_measurement = self._expected_unit
 
         self._attr_entity_registry_enabled_default = defn.get("enabled_default", True)
-        self._prev_native_value = _UNSET
+        self._last_written = _UNSET
 
     @callback
     def _handle_coordinator_update(self) -> None:
-        """Write HA state only when native_value actually changes."""
-        new_val = self.native_value
-        if self._prev_native_value is not _UNSET and new_val == self._prev_native_value:
+        """Write HA state only when the value or availability changes.
+
+        A failed poll keeps the old data, so availability must be compared
+        too or the entity would never show "unavailable".
+        """
+        new_val = (self.available, self.native_value)
+        if self._last_written is not _UNSET and new_val == self._last_written:
             return
-        self._prev_native_value = new_val
+        self._last_written = new_val
         self.async_write_ha_state()
 
     @property
@@ -140,12 +149,15 @@ class GenmonSensor(GenmonEntity, SensorEntity):
                 if self._expected_unit is None and unit:
                     self._attr_native_unit_of_measurement = UNIT_FIXUP.get(unit, unit)
                 return numeric
-            # If not parseable as number, return as string
-            return str(raw) if raw != "" else None
+            # HA refuses text for a sensor with a unit or state class
+            return None
 
         if raw == "" and self._path in self._EMPTY_DEFAULTS:
             return self._EMPTY_DEFAULTS[self._path]
-        return str(raw) if raw != "" else None
+        text = str(raw).strip()
+        if not text or GENMON_UNKNOWN.fullmatch(text):
+            return None
+        return text
 
     # Paths where empty string from genmon means a known "clear" state
     _EMPTY_DEFAULTS = {

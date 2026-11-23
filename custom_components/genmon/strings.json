@@ -33,6 +33,16 @@
           "port": "Port",
           "api_key": "API Key"
         }
+      },
+      "reauth_confirm": {
+        "title": "Update the Genmon API key",
+        "description": "genmon at {host}:{port} rejected the API key. Enter the current key from the genmon web UI under Settings > Home Assistant Integration (Native).",
+        "data": {
+          "api_key": "API Key"
+        },
+        "data_description": {
+          "api_key": "API key from genmon Settings > Home Assistant Integration (Native)"
+        }
       }
     },
     "error": {
@@ -42,7 +52,8 @@
     },
     "abort": {
       "already_configured": "This genmon instance is already configured.",
-      "reconfigure_successful": "Reconfiguration successful."
+      "reconfigure_successful": "Reconfiguration successful.",
+      "reauth_successful": "The API key was updated."
     }
   },
   "options": {
@@ -62,6 +73,29 @@
           "button_passcode": "Passcode or password required by controller buttons that accept user input (e.g. MEBAY controllers). Leave blank if your controller buttons do not require a passcode."
         }
       }
+    }
+  },
+  "exceptions": {
+    "exercise_day_of_month_not_monthly": {
+      "message": "The exercise day of the month only applies to monthly exercise. Set Exercise Frequency to Monthly first."
+    },
+    "command_failed": {
+      "message": "genmon rejected the command: {result}"
+    },
+    "command_no_answer": {
+      "message": "genmon did not answer the command. Check that genmon is running and can reach the generator."
+    },
+    "cannot_connect": {
+      "message": "Unable to send the command to genhalink: {error}"
+    },
+    "invalid_auth": {
+      "message": "genhalink rejected the API key. Update it with the reauthentication prompt for this integration."
+    },
+    "controller_input_not_set": {
+      "message": "Set the value for {button} first (its number entity)."
+    },
+    "controller_input_out_of_range": {
+      "message": "The controller doesn't accept {value}. {help}"
     }
   }
 }

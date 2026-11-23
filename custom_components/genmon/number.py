@@ -1,19 +1,36 @@
 """Number platform for Genmon Generator Monitor."""
 from __future__ import annotations
 
+from dataclasses import replace
 import logging
 from typing import Any
 
-from homeassistant.components.number import NumberEntity, NumberMode
+from homeassistant.components.number import NumberEntity, NumberMode, RestoreNumber
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.exceptions import ServiceValidationError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import DOMAIN
+from . import controller_buttons as cb
+from .const import CONF_BUTTON_PASSCODE, DOMAIN
 from .coordinator import GenmonCoordinator
 from .entity import GenmonEntity, should_add_entity
+from .exercise import (
+    MONTHLY,
+    ExerciseSchedule,
+    build_exercise_command,
+    schedule_from_state,
+)
 
 _LOGGER = logging.getLogger(__name__)
+
+# entity_id -> the ExerciseSchedule field the number sets
+SCHEDULE_FIELDS = {
+    "exercise_day_of_month": "day_of_month",
+    "exercise_hour": "hour",
+    "exercise_minute": "minute",
+}
 
 
 async def async_setup_entry(
@@ -23,23 +40,29 @@ async def async_setup_entry(
 ) -> None:
     """Set up Genmon numbers from entity definitions."""
     coordinator: GenmonCoordinator = hass.data[DOMAIN][entry.entry_id]
-    entities: list[GenmonNumber] = []
+    entities: list[NumberEntity] = []
     known_ids: set[str] = set()
 
     controller_type = coordinator.entities.get("controller_type")
-    capabilities = coordinator.entities.get("capabilities", {})
+    capabilities = coordinator.capabilities
     entity_defs = coordinator.entities.get("numbers", [])
     for defn in entity_defs:
         if should_add_entity(defn, controller_type, capabilities):
             entities.append(GenmonNumber(coordinator, defn))
             known_ids.add(defn.get("entity_id", defn.get("name", "")))
 
+    # Controller buttons that take a number (controller_buttons.py)
+    passcode = entry.options.get(CONF_BUTTON_PASSCODE, "")
+    for button in coordinator.entities.get("buttons_from_controller", []):
+        if cb.classify(button) in (cb.SETTING, cb.ACTION):
+            entities.append(GenmonControllerNumber(coordinator, button, passcode))
+
     async_add_entities(entities)
 
     @callback
     def _add_new(new_defs: list[dict]) -> None:
         ct = coordinator.entities.get("controller_type")
-        caps = coordinator.entities.get("capabilities", {})
+        caps = coordinator.capabilities
         async_add_entities([
             GenmonNumber(coordinator, d)
             for d in new_defs
@@ -50,7 +73,7 @@ async def async_setup_entry(
 
 
 class GenmonNumber(GenmonEntity, NumberEntity):
-    """A Genmon number entity (e.g., exercise hour/minute/day)."""
+    """A Genmon number entity (exercise hour, minute, day of the month)."""
 
     def __init__(self, coordinator: GenmonCoordinator, defn: dict[str, Any]) -> None:
         self._defn = defn
@@ -63,85 +86,100 @@ class GenmonNumber(GenmonEntity, NumberEntity):
         self._attr_native_step = float(defn.get("step", 1))
         self._attr_mode = NumberMode.BOX
         self._attr_icon = defn.get("icon")
-        self._command_template = defn.get("command_template", "")
+        self._field = SCHEDULE_FIELDS.get(defn.get("entity_id", ""))
+        # shown until genmon reports a schedule
         self._stored_value: float | None = None
 
     @property
     def native_value(self) -> float | None:
-        """Return the current value from coordinator exercise data."""
-        exercise = self._get_exercise_data()
-        if exercise is None:
+        """Return the value from genmon's exercise schedule."""
+        schedule = schedule_from_state(self.coordinator.data)
+        if schedule is None or self._field is None:
             return self._stored_value
-
-        eid = self._defn.get("entity_id", "")
-        if eid == "exercise_day_of_month":
-            val = exercise.get("day_of_month")
-            if val is not None:
-                return float(val)
-        elif eid == "exercise_hour":
-            val = exercise.get("hour")
-            if val is not None:
-                return float(val)
-        elif eid == "exercise_minute":
-            val = exercise.get("minute")
-            if val is not None:
-                return float(val)
-        return self._stored_value
+        value = getattr(schedule, self._field)
+        # e.g. the day of the month while the schedule is weekly
+        return float(value) if value is not None else None
 
     async def async_set_native_value(self, value: float) -> None:
-        """Set the value and send exercise command."""
+        """Send the schedule with this value changed."""
+        if self._field is None:
+            _LOGGER.warning("%s: no genmon command for this number", self.entity_id)
+            return
+        schedule = schedule_from_state(self.coordinator.data) or ExerciseSchedule()
+        if self._field == "day_of_month" and schedule.frequency != MONTHLY:
+            raise ServiceValidationError(
+                translation_domain=DOMAIN,
+                translation_key="exercise_day_of_month_not_monthly",
+            )
+        command = build_exercise_command(replace(schedule, **{self._field: int(value)}))
+        _LOGGER.debug("Sending exercise command: %s", command)
+        await self.coordinator.async_send_command(command)
         self._stored_value = value
-        await self._send_exercise_command()
-        await self.coordinator.async_request_refresh()
+        self.async_write_ha_state()
 
-    async def _send_exercise_command(self) -> None:
-        """Build and send the setexercise command from current values."""
-        exercise = self._get_exercise_data() or {}
-        eid = self._defn.get("entity_id", "")
 
-        frequency = exercise.get("frequency", "Weekly")
-        day = exercise.get("day", "Monday")
-        hour = exercise.get("hour", 12)
-        minute = exercise.get("minute", 0)
+class GenmonControllerNumber(GenmonEntity, RestoreNumber):
+    """The number input of a controller button.
 
-        if eid == "exercise_hour" and self._stored_value is not None:
-            hour = int(self._stored_value)
-        elif eid == "exercise_minute" and self._stored_value is not None:
-            minute = int(self._stored_value)
+    SETTING (e.g. Exercise Duration): setting the number writes it to the
+    controller. ACTION (e.g. a remote start with a run time): the number is
+    kept for the button, which sends it when pressed. genmon doesn't report
+    these registers, so the number shows the last value set in Home
+    Assistant (kept over restarts).
+    """
 
-        time_str = f"{int(hour):02d}:{int(minute):02d}"
-        cmd = f"setexercise={day},{time_str},{frequency}"
-        _LOGGER.debug("Sending exercise command: %s", cmd)
-        await self.coordinator.api.send_command(cmd)
+    _attr_mode = NumberMode.BOX
+    _attr_native_step = 1.0
 
-    def _get_exercise_data(self) -> dict[str, Any] | None:
-        """Extract exercise schedule data from coordinator."""
-        if self.coordinator.data is None:
-            return None
-        maint = self.coordinator.data.get("Maintenance", {})
-        exercise = maint.get("Exercise", {})
-        if not exercise:
-            return None
+    def __init__(
+        self, coordinator: GenmonCoordinator, button: dict[str, Any], passcode: str
+    ) -> None:
+        self._button = button
+        self._input = cb.number_inputs(button)[0]
+        self._passcode = passcode
+        self._is_setting = cb.classify(button) == cb.SETTING
+        title = button.get("title", button.get("onewordcommand", ""))
+        key = cb.button_key(button)
+        if self._is_setting:
+            # replaces the button of the same key (same unique_id suffix)
+            super().__init__(coordinator, key, title)
+            self._attr_entity_category = EntityCategory.CONFIG
+        else:
+            super().__init__(coordinator, key + "_input", f"{title} {self._input['input_title']}")
+        self._input_key = key
+        low, high = cb.input_range(self._input)
+        self._attr_native_min_value = float(low)
+        self._attr_native_max_value = float(high)
+        self._attr_native_unit_of_measurement = cb.unit(self._input)
+        self._attr_native_value: float | None = None
+        self._attr_icon = "mdi:tune-vertical" if self._is_setting else "mdi:timer-cog-outline"
 
-        exercise_time = exercise.get("Exercise Time", "")
-        if isinstance(exercise_time, str) and exercise_time:
-            return self._parse_exercise_time(exercise_time)
-        return None
+    async def async_added_to_hass(self) -> None:
+        """Restore the last value set in Home Assistant."""
+        await super().async_added_to_hass()
+        last = await self.async_get_last_number_data()
+        if last is not None and last.native_value is not None:
+            self._attr_native_value = last.native_value
+            if not self._is_setting:
+                self.coordinator.controller_inputs[self._input_key] = int(last.native_value)
 
-    @staticmethod
-    def _parse_exercise_time(raw: str) -> dict[str, Any]:
-        """Parse exercise time string into components."""
-        parts = raw.split()
-        result: dict[str, Any] = {}
-        if len(parts) >= 1:
-            result["frequency"] = parts[0]
-        if len(parts) >= 2:
-            result["day"] = parts[1]
-        if len(parts) >= 3 and ":" in parts[2]:
-            time_parts = parts[2].split(":")
-            try:
-                result["hour"] = int(time_parts[0])
-                result["minute"] = int(time_parts[1]) if len(time_parts) > 1 else 0
-            except ValueError:
-                pass
-        return result
+    async def async_set_native_value(self, value: float) -> None:
+        """Write a setting to the controller, or keep an action's input."""
+        number = int(value)
+        if not cb.value_accepted(self._input, number):
+            raise ServiceValidationError(
+                translation_domain=DOMAIN,
+                translation_key="controller_input_out_of_range",
+                translation_placeholders={
+                    "value": str(number),
+                    "help": self._input.get("tooltip", ""),
+                },
+            )
+        if self._is_setting:
+            await self.coordinator.async_send_command(
+                cb.build_command(self._button, self._passcode, number)
+            )
+        else:
+            self.coordinator.controller_inputs[self._input_key] = number
+        self._attr_native_value = float(number)
+        self.async_write_ha_state()

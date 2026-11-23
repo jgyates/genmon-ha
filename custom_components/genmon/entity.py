@@ -32,6 +32,12 @@ def should_add_entity(defn: dict, controller_type: str | None, capabilities: dic
             return False
         if eid == "quiet_mode" and not capabilities.get("WriteQuietMode", False):
             return False
+        # Only monthly exercise has a day of the month
+        if (
+            eid == "exercise_day_of_month"
+            and capabilities.get("EnhancedExerciseMode") is False
+        ):
+            return False
     return True
 
 

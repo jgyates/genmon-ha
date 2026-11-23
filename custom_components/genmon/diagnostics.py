@@ -7,12 +7,12 @@ from homeassistant.components.diagnostics import async_redact_data
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
-from .const import CONF_API_KEY, DOMAIN
+from .const import CONF_API_KEY, CONF_BUTTON_PASSCODE, DOMAIN
 from .coordinator import GenmonCoordinator
 
 REDACT_KEYS = {
     CONF_API_KEY,
-    "api_key",
+    CONF_BUTTON_PASSCODE,
     "serial",
     "SerialNumber",
     "Generator Serial Number",
@@ -29,7 +29,7 @@ async def async_get_config_entry_diagnostics(
 
     return {
         "config_entry": async_redact_data(dict(entry.data), REDACT_KEYS),
-        "options": dict(entry.options),
+        "options": async_redact_data(dict(entry.options), REDACT_KEYS),
         "info": async_redact_data(coordinator.info, REDACT_KEYS),
         "entity_definitions": {
             "sensors": len(coordinator.entities.get("sensors", [])),

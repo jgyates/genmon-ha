@@ -1,0 +1,403 @@
+{
+  "AckAlarms": true,
+  "Controller": "H-100 Controller, PM-DCP Release 4.2A1, HW00",
+  "ExerciseControls": false,
+  "FuelCalculation": false,
+  "FuelConsumption": false,
+  "FuelSensor": true,
+  "Linux": false,
+  "NominalBatteryVolts": 24,
+  "Platform": "Darwin",
+  "PowerGraph": true,
+  "RaspberryPi": false,
+  "RemoteButtons": false,
+  "RemoteCommands": true,
+  "RemoteExercise": false,
+  "RemoteTransfer": false,
+  "ResetAlarms": false,
+  "Sensors": [],
+  "SetGenTime": true,
+  "UtilityVoltage": false,
+  "WriteQuietMode": false,
+  "buttons": [],
+  "code_hash": "8e5c94a",
+  "fueltype": "Natural Gas",
+  "import_config_file": null,
+  "install": "2026-11-23 13:59:16.524725",
+  "model": "Generac H-100 Industrial Generator",
+  "nominalKW": "35",
+  "nominalRPM": "1800",
+  "nominalfrequency": "60",
+  "os_bits": "64",
+  "pages": {
+    "about": true,
+    "addons": true,
+    "logs": true,
+    "maint": true,
+    "maintlog": true,
+    "monitor": true,
+    "notifications": true,
+    "outage": false,
+    "settings": true,
+    "status": true
+  },
+  "phase": "3",
+  "platform": "darwin",
+  "python": "3.14.10",
+  "sitename": "SimTest",
+  "tiles": [
+    {
+      "colorzones": [
+        {
+          "max": 23.0,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 25.0,
+          "min": 23.0,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 30.0,
+          "min": 25.0,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 31.0,
+          "min": 30.0,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 32.0,
+          "min": 31.0,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 6,
+      "labels": [
+        0,
+        8,
+        16,
+        24,
+        32
+      ],
+      "maximum": 32.0,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "batteryvolts",
+      "title": "Battery Voltage",
+      "type": "gauge",
+      "units": "V"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 216,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 228,
+          "min": 216,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 252,
+          "min": 228,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 264,
+          "min": 252,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 280,
+          "min": 264,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 10,
+      "labels": [
+        0,
+        50,
+        95,
+        145,
+        190,
+        240,
+        280
+      ],
+      "maximum": 280,
+      "minimum": 0,
+      "subdivisions": 0,
+      "subtype": "linevolts",
+      "title": "Voltage (Avg)",
+      "type": "gauge",
+      "units": "V"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 116,
+          "min": 0,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 138,
+          "min": 116,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 175,
+          "min": 138,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": null,
+      "divisions": 12,
+      "labels": [
+        0,
+        30,
+        60,
+        90,
+        115,
+        145,
+        175
+      ],
+      "maximum": 175,
+      "minimum": 0,
+      "subdivisions": 5,
+      "subtype": "current",
+      "title": "Current (Avg)",
+      "type": "gauge",
+      "units": "A"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 54,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 57,
+          "min": 54,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 63,
+          "min": 57,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 66,
+          "min": 63,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 70,
+          "min": 66,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 7,
+      "labels": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70
+      ],
+      "maximum": 70,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "frequency",
+      "title": "Frequency",
+      "type": "gauge",
+      "units": "Hz"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 1725,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 1750,
+          "min": 1725,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 1850,
+          "min": 1750,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 1875,
+          "min": 1850,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 1890,
+          "min": 1875,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 4,
+      "labels": [
+        0,
+        450,
+        900,
+        1350,
+        1800
+      ],
+      "maximum": 1890,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "rpm",
+      "title": "RPM",
+      "type": "gauge",
+      "units": ""
+    },
+    {
+      "colorzones": [
+        {
+          "max": 200,
+          "min": 0,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 220,
+          "min": 200,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 300,
+          "min": 220,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": null,
+      "divisions": 30,
+      "labels": [
+        0,
+        30,
+        60,
+        90,
+        120,
+        150,
+        180,
+        210,
+        240,
+        270,
+        300
+      ],
+      "maximum": 300,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "temperature",
+      "title": "Coolant Temp",
+      "type": "gauge",
+      "units": "F"
+    },
+    {
+      "colorzones": [
+        {
+          "max": 28,
+          "min": 0,
+          "strokeStyle": "#30B32D"
+        },
+        {
+          "max": 33,
+          "min": 28,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 42,
+          "min": 33,
+          "strokeStyle": "#F03E3E"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 12,
+      "labels": [
+        0,
+        10,
+        20,
+        30,
+        42
+      ],
+      "maximum": 42,
+      "minimum": 0,
+      "subdivisions": 5,
+      "subtype": "power",
+      "title": "Power Output",
+      "type": "gauge",
+      "units": "kW"
+    },
+    {
+      "colorzones": null,
+      "default-size": 2,
+      "divisions": null,
+      "labels": null,
+      "maximum": 42.0,
+      "minimum": 0,
+      "subdivisions": null,
+      "subtype": "powergraph",
+      "title": "kW Output",
+      "type": "graph",
+      "units": ""
+    },
+    {
+      "colorzones": [
+        {
+          "max": 10,
+          "min": 0,
+          "strokeStyle": "#F03E3E"
+        },
+        {
+          "max": 25,
+          "min": 10,
+          "strokeStyle": "#FFDD00"
+        },
+        {
+          "max": 100,
+          "min": 25,
+          "strokeStyle": "#30B32D"
+        }
+      ],
+      "default-size": 2,
+      "divisions": 10,
+      "labels": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80,
+        90,
+        100
+      ],
+      "maximum": 100,
+      "minimum": 0,
+      "subdivisions": 10,
+      "subtype": "fuel",
+      "title": "Fuel Sensor",
+      "type": "gauge",
+      "units": "%"
+    }
+  ],
+  "version": "2.0.4",
+  "zone": "EDT"
+}

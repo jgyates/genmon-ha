@@ -1,0 +1,785 @@
+{
+  "binary_sensors": [
+    {
+      "device_class": "power",
+      "entity_id": "system_in_outage",
+      "icon": "mdi:transmission-tower-off",
+      "name": "System In Outage",
+      "path": "Outage/System In Outage",
+      "payload_off": "No",
+      "payload_on": "Yes"
+    },
+    {
+      "device_class": "power",
+      "entity_id": "utility_present",
+      "icon": "mdi:transmission-tower",
+      "name": "Utility Power Present",
+      "path": "Outage/System In Outage",
+      "payload_off": "Yes",
+      "payload_on": "No"
+    }
+  ],
+  "buttons": [],
+  "buttons_from_controller": [
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^(0*([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))$",
+          "format": "%04x5555",
+          "input_title": "Passcode",
+          "length": 4,
+          "reg": "2000",
+          "tooltip": "The user password set on the controller. This must be a whole number between 0 and 65535 in decimal format.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "start",
+      "title": "Remote Start"
+    },
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^(0*([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))$",
+          "format": "%04x1111",
+          "input_title": "Passcode",
+          "length": 4,
+          "reg": "2000",
+          "tooltip": "The user password set on the controller. This must be a whole number between 0 and 65535 in decimal format.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "stop",
+      "title": "Remote Stop"
+    },
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^(0*([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))$",
+          "format": "%04x4444",
+          "input_title": "Passcode",
+          "length": 4,
+          "reg": "2000",
+          "tooltip": "The user password set on the controller. This must be a whole number between 0 and 65535 in decimal format.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "startexercise",
+      "title": "Remote Start Test"
+    },
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^(0*([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))$",
+          "format": "%04x3333",
+          "input_title": "Passcode",
+          "length": 4,
+          "reg": "2000",
+          "tooltip": "The user password set on the controller. This must be a whole number between 0 and 65535 in decimal format.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "auto",
+      "title": "Select Auto Mode"
+    },
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^(0*([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))$",
+          "format": "%04x2222",
+          "input_title": "Passcode",
+          "length": 4,
+          "reg": "2000",
+          "tooltip": "The user password set on the controller. This must be a whole number between 0 and 65535 in decimal format.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "manual",
+      "title": "Select Manual Mode"
+    },
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^(0*([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))$",
+          "format": "%04x6666",
+          "input_title": "Passcode",
+          "length": 4,
+          "reg": "2000",
+          "tooltip": "The user password set on the controller. This must be a whole number between 0 and 65535 in decimal format.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "mute",
+      "title": "Mute"
+    },
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^(0*([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))$",
+          "format": "%04x7777",
+          "input_title": "Passcode",
+          "length": 4,
+          "reg": "2000",
+          "tooltip": "The user password set on the controller. This must be a whole number between 0 and 65535 in decimal format.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "genopenclose",
+      "title": "Gen Switch Open and Closing "
+    },
+    {
+      "command_sequence": [
+        {
+          "bounds_regex": "^(0*([0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))$",
+          "format": "%04x8888",
+          "input_title": "Passcode",
+          "length": 4,
+          "reg": "2000",
+          "tooltip": "The user password set on the controller. This must be a whole number between 0 and 65535 in decimal format.",
+          "type": "int"
+        }
+      ],
+      "onewordcommand": "mainsopenclose",
+      "title": "Mains Switch Open and Closing "
+    }
+  ],
+  "capabilities": {
+    "EnhancedExerciseMode": false,
+    "ExerciseControls": false,
+    "RemoteButtons": false,
+    "RemoteCommands": false,
+    "RemoteTransfer": false,
+    "SetGenTime": false,
+    "WriteQuietMode": false
+  },
+  "controller": "MEBAY DCxx Controller",
+  "controller_type": "MEBAY_DCxx",
+  "fueltype": "Propane",
+  "model": "MEBAY DCxx Controller",
+  "nominalKW": "13",
+  "numbers": [],
+  "selects": [],
+  "sensors": [
+    {
+      "enabled_default": true,
+      "entity_id": "outage_status",
+      "icon": "mdi:power-plug-off",
+      "monitor_stats": false,
+      "name": "Outage Status",
+      "path": "Outage/Status",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "enabled_default": true,
+      "entity_id": "model",
+      "icon": "mdi:information",
+      "monitor_stats": false,
+      "name": "Model",
+      "path": "Maintenance/Model",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "enabled_default": true,
+      "entity_id": "controller",
+      "icon": "mdi:chip",
+      "monitor_stats": false,
+      "name": "Controller",
+      "path": "Maintenance/Controller Detected",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "enabled_default": true,
+      "entity_id": "nominal_rpm",
+      "icon": "mdi:speedometer",
+      "monitor_stats": false,
+      "name": "Nominal RPM",
+      "path": "Maintenance/Nominal RPM",
+      "unit": "RPM",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "device_class": "power",
+      "enabled_default": true,
+      "entity_id": "rated_kw",
+      "icon": "mdi:flash",
+      "monitor_stats": false,
+      "name": "Rated Power",
+      "path": "Maintenance/Rated kW",
+      "unit": "kW",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "enabled_default": true,
+      "entity_id": "fuel_type",
+      "icon": "mdi:fuel",
+      "monitor_stats": false,
+      "name": "Fuel Type",
+      "path": "Maintenance/Fuel Type",
+      "weather": false
+    },
+    {
+      "enabled_default": true,
+      "entity_id": "monitor_health",
+      "icon": "mdi:heart-pulse",
+      "monitor_stats": false,
+      "name": "Monitor Health",
+      "path": "Monitor/Generator Monitor Stats/Monitor Health",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "enabled_default": true,
+      "entity_id": "genmon_version",
+      "icon": "mdi:tag",
+      "monitor_stats": false,
+      "name": "Genmon Version",
+      "path": "Monitor/Generator Monitor Stats/Generator Monitor Version",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "enabled_default": true,
+      "entity_id": "run_time",
+      "icon": "mdi:clock-outline",
+      "monitor_stats": true,
+      "name": "Monitor Run Time",
+      "path": "Monitor/Generator Monitor Stats/Run time",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "enabled_default": true,
+      "entity_id": "crc_errors",
+      "icon": "mdi:alert-circle",
+      "monitor_stats": true,
+      "name": "CRC Errors",
+      "path": "Monitor/Communication Stats/CRC Errors",
+      "state_class": "total_increasing",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "enabled_default": true,
+      "entity_id": "comm_success",
+      "icon": "mdi:check-network",
+      "monitor_stats": true,
+      "name": "Communication Success",
+      "path": "Monitor/Communication Stats/Packet Count",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "device_class": "duration",
+      "enabled_default": true,
+      "entity_id": "monitor_communication_stats_average_transaction_time",
+      "monitor_stats": true,
+      "name": "Average Transaction Time",
+      "path": "Monitor/Communication Stats/Average Transaction Time",
+      "state_class": "measurement",
+      "unit": "s",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "enabled_default": true,
+      "entity_id": "monitor_communication_stats_comm_restarts",
+      "monitor_stats": true,
+      "name": "Comm Restarts",
+      "path": "Monitor/Communication Stats/Comm Restarts",
+      "state_class": "total_increasing",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "enabled_default": true,
+      "entity_id": "monitor_communication_stats_discarded_bytes",
+      "monitor_stats": true,
+      "name": "Discarded Bytes",
+      "path": "Monitor/Communication Stats/Discarded Bytes",
+      "state_class": "total_increasing",
+      "weather": false
+    },
+    {
+      "category": "diagnostic",
+      "enabled_default": true,
+      "entity_id": "monitor_communication_stats_packets_per_second",
+      "monitor_stats": true,
+      "name": "Packets Per Second",
+      "path": "Monitor/Communication Stats/Packets Per Second",
+      "state_class": "measurement",
+      "weather": false
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_generator_status",
+      "name": "Generator Status",
+      "path": "Status/Generator Status"
+    },
+    {
+      "device_class": "voltage",
+      "dynamic": true,
+      "entity_id": "status_engine_battery_voltage",
+      "name": "Battery Voltage",
+      "path": "Status/Engine/Battery Voltage",
+      "state_class": "measurement",
+      "unit": "V"
+    },
+    {
+      "device_class": "frequency",
+      "dynamic": true,
+      "entity_id": "status_engine_generator_frequency",
+      "name": "Generator Frequency",
+      "path": "Status/Engine/Generator Frequency",
+      "state_class": "measurement",
+      "unit": "Hz"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_engine_rpm",
+      "name": "RPM",
+      "path": "Status/Engine/RPM",
+      "state_class": "measurement"
+    },
+    {
+      "device_class": "voltage",
+      "dynamic": true,
+      "entity_id": "status_engine_voltage_l1",
+      "name": "Voltage L1",
+      "path": "Status/Engine/Voltage L1",
+      "state_class": "measurement",
+      "unit": "V"
+    },
+    {
+      "device_class": "voltage",
+      "dynamic": true,
+      "entity_id": "status_engine_voltage_l2",
+      "name": "Voltage L2",
+      "path": "Status/Engine/Voltage L2",
+      "state_class": "measurement",
+      "unit": "V"
+    },
+    {
+      "device_class": "voltage",
+      "dynamic": true,
+      "entity_id": "status_engine_generator_l1_l2_voltage",
+      "name": "Generator L1-L2 Voltage",
+      "path": "Status/Engine/Generator L1-L2 Voltage",
+      "state_class": "measurement",
+      "unit": "V"
+    },
+    {
+      "device_class": "current",
+      "dynamic": true,
+      "entity_id": "status_engine_l1_current",
+      "name": "L1 Current",
+      "path": "Status/Engine/L1 Current",
+      "state_class": "measurement",
+      "unit": "A"
+    },
+    {
+      "device_class": "current",
+      "dynamic": true,
+      "entity_id": "status_engine_l2_current",
+      "name": "L2 Current",
+      "path": "Status/Engine/L2 Current",
+      "state_class": "measurement",
+      "unit": "A"
+    },
+    {
+      "device_class": "current",
+      "dynamic": true,
+      "entity_id": "status_engine_total_current",
+      "name": "Total Current",
+      "path": "Status/Engine/Total Current",
+      "state_class": "measurement",
+      "unit": "A"
+    },
+    {
+      "device_class": "apparent_power",
+      "dynamic": true,
+      "entity_id": "status_engine_apparent_power_s1",
+      "name": "Apparent Power S1",
+      "path": "Status/Engine/Apparent Power S1",
+      "state_class": "measurement",
+      "unit": "kVA"
+    },
+    {
+      "device_class": "apparent_power",
+      "dynamic": true,
+      "entity_id": "status_engine_apparent_power_s2",
+      "name": "Apparent Power S2",
+      "path": "Status/Engine/Apparent Power S2",
+      "state_class": "measurement",
+      "unit": "kVA"
+    },
+    {
+      "device_class": "apparent_power",
+      "dynamic": true,
+      "entity_id": "status_engine_total_apparent_power",
+      "name": "Total Apparent Power",
+      "path": "Status/Engine/Total Apparent Power",
+      "state_class": "measurement",
+      "unit": "kVA"
+    },
+    {
+      "device_class": "power",
+      "dynamic": true,
+      "entity_id": "status_engine_active_power_s1",
+      "name": "Active Power S1",
+      "path": "Status/Engine/Active Power S1",
+      "state_class": "measurement",
+      "unit": "kW"
+    },
+    {
+      "device_class": "power",
+      "dynamic": true,
+      "entity_id": "status_engine_active_power_s2",
+      "name": "Active Power S2",
+      "path": "Status/Engine/Active Power S2",
+      "state_class": "measurement",
+      "unit": "kW"
+    },
+    {
+      "device_class": "power",
+      "dynamic": true,
+      "entity_id": "status_engine_total_active_power",
+      "name": "Total Active Power",
+      "path": "Status/Engine/Total Active Power",
+      "state_class": "measurement",
+      "unit": "kW"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_engine_reactive_power_q1",
+      "name": "Reactive Power Q1",
+      "path": "Status/Engine/Reactive Power Q1"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_engine_reactive_power_q2",
+      "name": "Reactive Power Q2",
+      "path": "Status/Engine/Reactive Power Q2"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_engine_total_reactive_power",
+      "name": "Total Reactive Power",
+      "path": "Status/Engine/Total Reactive Power"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_engine_power_factor_pf1",
+      "name": "Power Factor PF1",
+      "path": "Status/Engine/Power Factor PF1",
+      "state_class": "measurement"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_engine_power_factor_pf2",
+      "name": "Power Factor PF2",
+      "path": "Status/Engine/Power Factor PF2",
+      "state_class": "measurement"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_engine_power_factor_pf3",
+      "name": "Power Factor PF3",
+      "path": "Status/Engine/Power Factor PF3",
+      "state_class": "measurement"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_engine_average_power_factor",
+      "name": "Average Power Factor",
+      "path": "Status/Engine/Average Power Factor",
+      "state_class": "measurement"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_engine_oil_pressure",
+      "name": "Oil Pressure",
+      "path": "Status/Engine/Oil Pressure"
+    },
+    {
+      "device_class": "temperature",
+      "dynamic": true,
+      "entity_id": "status_engine_water_temperature",
+      "name": "Water Temperature",
+      "path": "Status/Engine/Water Temperature",
+      "state_class": "measurement",
+      "unit": "\u00b0F"
+    },
+    {
+      "device_class": "frequency",
+      "dynamic": true,
+      "entity_id": "status_line_mains_frequency",
+      "name": "Mains Frequency",
+      "path": "Status/Line/Mains Frequency",
+      "state_class": "measurement",
+      "unit": "Hz"
+    },
+    {
+      "device_class": "voltage",
+      "dynamic": true,
+      "entity_id": "status_line_mains_voltage_l1",
+      "name": "Mains Voltage L1",
+      "path": "Status/Line/Mains Voltage L1",
+      "state_class": "measurement",
+      "unit": "V"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_line_ats_status",
+      "name": "ATS Status",
+      "path": "Status/Line/ATS Status"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_inputs_and_outputs_switch_input_status",
+      "name": "Switch Input Status",
+      "path": "Status/Inputs and Outputs/Switch Input Status"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_inputs_and_outputs_relay_output_status",
+      "name": "Relay Output Status",
+      "path": "Status/Inputs and Outputs/Relay Output Status"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_time_monitor_time",
+      "name": "Monitor Time",
+      "path": "Status/Time/Monitor Time"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "status_time_generator_time",
+      "name": "Generator Time",
+      "path": "Status/Time/Generator Time"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "maintenance_maintenance_due",
+      "name": "Maintenance Due",
+      "path": "Maintenance/Maintenance Due"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "maintenance_nominal_frequency",
+      "name": "Nominal Frequency",
+      "path": "Maintenance/Nominal Frequency",
+      "state_class": "measurement"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "maintenance_phase",
+      "name": "Phase",
+      "path": "Maintenance/Phase",
+      "state_class": "measurement"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "maintenance_service_total_run_hours",
+      "name": "Total Run Hours",
+      "path": "Maintenance/Service/Total Run Hours",
+      "state_class": "measurement",
+      "unit": "h"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "maintenance_service_current_run_hours",
+      "name": "Current Run Hours",
+      "path": "Maintenance/Service/Current Run Hours",
+      "state_class": "measurement",
+      "unit": "h"
+    },
+    {
+      "device_class": "voltage",
+      "dynamic": true,
+      "entity_id": "maintenance_service_backup_battery_voltage",
+      "name": "Backup Battery voltage",
+      "path": "Maintenance/Service/Backup Battery voltage",
+      "state_class": "measurement",
+      "unit": "V"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "maintenance_service_maintenance_countdown",
+      "name": "Maintenance Countdown",
+      "path": "Maintenance/Service/Maintenance Countdown",
+      "state_class": "measurement",
+      "unit": "h"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "maintenance_service_total_crank_times",
+      "name": "Total Crank Times",
+      "path": "Maintenance/Service/Total Crank Times",
+      "state_class": "measurement"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "maintenance_service_dynamic_load",
+      "name": "Dynamic Load",
+      "path": "Maintenance/Service/Dynamic Load",
+      "state_class": "measurement",
+      "unit": "%"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "maintenance_service_current_load",
+      "name": "Current Load",
+      "path": "Maintenance/Service/Current Load",
+      "state_class": "measurement",
+      "unit": "%"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "maintenance_service_average_load",
+      "name": "Average Load",
+      "path": "Maintenance/Service/Average Load",
+      "state_class": "measurement",
+      "unit": "%"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "maintenance_service_current_consumption",
+      "name": "Current Consumption",
+      "path": "Maintenance/Service/Current Consumption"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "maintenance_service_total_consumption",
+      "name": "Total Consumption",
+      "path": "Maintenance/Service/Total Consumption"
+    },
+    {
+      "device_class": "voltage",
+      "dynamic": true,
+      "entity_id": "outage_utility_voltage_minimum",
+      "name": "Utility Voltage Minimum",
+      "path": "Outage/Utility Voltage Minimum",
+      "state_class": "measurement",
+      "unit": "V"
+    },
+    {
+      "device_class": "voltage",
+      "dynamic": true,
+      "entity_id": "outage_utility_voltage_maximum",
+      "name": "Utility Voltage Maximum",
+      "path": "Outage/Utility Voltage Maximum",
+      "state_class": "measurement",
+      "unit": "V"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "outage_outage_log",
+      "name": "Outage Log",
+      "path": "Outage/Outage Log"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_generator_monitor_stats_update_available",
+      "name": "Update Available",
+      "path": "Monitor/Generator Monitor Stats/Update Available"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_generator_monitor_stats_update_version",
+      "name": "Update Version",
+      "path": "Monitor/Generator Monitor Stats/Update Version"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_communication_stats_crc_percent_errors",
+      "name": "CRC Percent Errors",
+      "path": "Monitor/Communication Stats/CRC Percent Errors",
+      "state_class": "measurement",
+      "unit": "%"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_communication_stats_timeout_percent_errors",
+      "name": "Timeout Percent Errors",
+      "path": "Monitor/Communication Stats/Timeout Percent Errors",
+      "state_class": "measurement",
+      "unit": "%"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_communication_stats_modbus_exceptions",
+      "name": "Modbus Exceptions",
+      "path": "Monitor/Communication Stats/Modbus Exceptions",
+      "state_class": "measurement"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_communication_stats_validation_errors",
+      "name": "Validation Errors",
+      "path": "Monitor/Communication Stats/Validation Errors",
+      "state_class": "measurement"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_communication_stats_sync_errors",
+      "name": "Sync Errors",
+      "path": "Monitor/Communication Stats/Sync Errors",
+      "state_class": "measurement"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_communication_stats_invalid_data",
+      "name": "Invalid Data",
+      "path": "Monitor/Communication Stats/Invalid Data",
+      "state_class": "measurement"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_communication_stats_modbus_transport",
+      "name": "Modbus Transport",
+      "path": "Monitor/Communication Stats/Modbus Transport"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_platform_stats_platform",
+      "name": "Platform",
+      "path": "Monitor/Platform Stats/Platform"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_platform_stats_os_release",
+      "name": "OS Release",
+      "path": "Monitor/Platform Stats/OS Release"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_platform_stats_os_version",
+      "name": "OS Version",
+      "path": "Monitor/Platform Stats/OS Version"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_platform_stats_processor",
+      "name": "Processor",
+      "path": "Monitor/Platform Stats/Processor"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_platform_stats_architecture",
+      "name": "Architecture",
+      "path": "Monitor/Platform Stats/Architecture"
+    },
+    {
+      "dynamic": true,
+      "entity_id": "monitor_platform_stats_system_time",
+      "name": "System Time",
+      "path": "Monitor/Platform Stats/System Time"
+    }
+  ],
+  "serial": "",
+  "switches": []
+}

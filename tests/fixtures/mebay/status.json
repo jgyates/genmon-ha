@@ -1,0 +1,402 @@
+{
+  "state": {
+    "Maintenance": {
+      "Controller Detected": "MEBAY DC-42 Controller",
+      "Fuel Type": "Propane",
+      "Maintenance Due": "No",
+      "Model": "MEBAY DCxx Controller",
+      "Nominal Frequency": 60,
+      "Nominal RPM": 3600,
+      "Phase": 1,
+      "Rated kW": "13",
+      "Service": {
+        "Average Load": {
+          "type": "int",
+          "unit": "%",
+          "value": 0
+        },
+        "Backup Battery voltage": {
+          "type": "float",
+          "unit": "V",
+          "value": 13.0
+        },
+        "Current Consumption": {
+          "type": "int",
+          "unit": "kWh",
+          "value": 0
+        },
+        "Current Load": {
+          "type": "int",
+          "unit": "%",
+          "value": 0
+        },
+        "Current Run Hours": {
+          "type": "float",
+          "unit": "h",
+          "value": 0.1
+        },
+        "Dynamic Load": {
+          "type": "int",
+          "unit": "%",
+          "value": 0
+        },
+        "Maintenance Countdown": {
+          "type": "int",
+          "unit": "h",
+          "value": 50
+        },
+        "Total Consumption": {
+          "type": "int",
+          "unit": "kWh",
+          "value": 0
+        },
+        "Total Crank Times": {
+          "type": "int",
+          "unit": "",
+          "value": 0
+        },
+        "Total Run Hours": {
+          "type": "float",
+          "unit": "h",
+          "value": 0.1
+        }
+      }
+    },
+    "Monitor": {
+      "Communication Stats": {
+        "Average Transaction Time": "0.0121 sec",
+        "CRC Errors": "0 ",
+        "CRC Percent Errors": "0.00%",
+        "Comm Restarts": "0",
+        "Discarded Bytes": "0",
+        "Invalid Data": 0,
+        "Modbus Exceptions": 0,
+        "Modbus Transport": "TCP",
+        "Packet Count": "M: 585, S: 584",
+        "Packets Per Second": "159.84",
+        "Sync Errors": 0,
+        "Timeout Percent Errors": "0.00%",
+        "Validation Errors": 0
+      },
+      "Generator Monitor Stats": {
+        "Generator Monitor Version": "2.0.4",
+        "Monitor Health": "OK",
+        "Run time": "Generator Monitor running for 0:00:07.",
+        "Update Available": "No",
+        "Update Version": ""
+      },
+      "Platform Stats": {
+        "Architecture": "64",
+        "OS Release": "27.2.0",
+        "OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+        "Platform": "Darwin",
+        "Processor": "arm",
+        "System Time": "Monday November 23, 2026 13:59:42"
+      }
+    },
+    "Outage": {
+      "Outage Log": "",
+      "Status": "No outage has occurred since program launched.",
+      "System In Outage": "No",
+      "Utility Voltage Maximum": {
+        "type": "int",
+        "unit": "V",
+        "value": 0
+      },
+      "Utility Voltage Minimum": {
+        "type": "int",
+        "unit": "V",
+        "value": 0
+      }
+    },
+    "Status": {
+      "Engine": {
+        "Active Power S1": {
+          "type": "float",
+          "unit": "kW",
+          "value": 0.0
+        },
+        "Active Power S2": {
+          "type": "float",
+          "unit": "kW",
+          "value": 0.0
+        },
+        "Apparent Power S1": {
+          "type": "float",
+          "unit": "kVA",
+          "value": 0.0
+        },
+        "Apparent Power S2": {
+          "type": "float",
+          "unit": "kVA",
+          "value": 0.0
+        },
+        "Average Power Factor": {
+          "type": "float",
+          "unit": "",
+          "value": 0.0
+        },
+        "Battery Voltage": {
+          "type": "float",
+          "unit": "V",
+          "value": 12.8
+        },
+        "Generator Frequency": {
+          "type": "float",
+          "unit": "Hz",
+          "value": 0.0
+        },
+        "Generator L1-L2 Voltage": {
+          "type": "int",
+          "unit": "V",
+          "value": 0
+        },
+        "L1 Current": {
+          "type": "float",
+          "unit": "A",
+          "value": 0.0
+        },
+        "L2 Current": {
+          "type": "float",
+          "unit": "A",
+          "value": 0.0
+        },
+        "Oil Pressure": {
+          "type": "int",
+          "unit": "PSI",
+          "value": 94
+        },
+        "Power Factor PF1": {
+          "type": "float",
+          "unit": "",
+          "value": 0.0
+        },
+        "Power Factor PF2": {
+          "type": "float",
+          "unit": "",
+          "value": 0.0
+        },
+        "Power Factor PF3": {
+          "type": "float",
+          "unit": "",
+          "value": 0.0
+        },
+        "RPM": {
+          "type": "float",
+          "unit": "",
+          "value": 0.0
+        },
+        "Reactive Power Q1": {
+          "type": "float",
+          "unit": "kVar",
+          "value": 0.0
+        },
+        "Reactive Power Q2": {
+          "type": "float",
+          "unit": "kVar",
+          "value": 0.0
+        },
+        "Total Active Power": {
+          "type": "float",
+          "unit": "kW",
+          "value": 0.0
+        },
+        "Total Apparent Power": {
+          "type": "float",
+          "unit": "kVA",
+          "value": 0.0
+        },
+        "Total Current": {
+          "type": "float",
+          "unit": "A",
+          "value": 0.0
+        },
+        "Total Reactive Power": {
+          "type": "float",
+          "unit": "kVar",
+          "value": 0.0
+        },
+        "Voltage L1": {
+          "type": "int",
+          "unit": "V",
+          "value": 0
+        },
+        "Voltage L2": {
+          "type": "int",
+          "unit": "V",
+          "value": 0
+        },
+        "Water Temperature": {
+          "type": "int",
+          "unit": "F",
+          "value": 174
+        }
+      },
+      "Generator Status": "Mains on Load",
+      "Inputs and Outputs": {
+        "Relay Output Status": "",
+        "Switch Input Status": ""
+      },
+      "Line": {
+        "ATS Status": "MAINS Closing",
+        "Mains Frequency": {
+          "type": "float",
+          "unit": "Hz",
+          "value": 0.0
+        },
+        "Mains Voltage L1": {
+          "type": "int",
+          "unit": "V",
+          "value": 0
+        }
+      },
+      "Time": {
+        "Generator Time": "Thursday December 19, 2024 7:233",
+        "Monitor Time": "Monday November 23, 2026 13:59:42"
+      }
+    },
+    "gui_status": {
+      "AltDateformat": false,
+      "ExerciseInfo": {
+        "Day": "Monday",
+        "Enabled": false,
+        "EnhancedExerciseMode": false,
+        "Frequency": "Weekly",
+        "Hour": "14",
+        "Minute": "00",
+        "QuietMode": "Off"
+      },
+      "MonitorTime": "11/23/2026 13:59",
+      "PlatformStats": {
+        "Architecture": "64",
+        "OS Release": "27.2.0",
+        "OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+        "Platform": "Darwin",
+        "Processor": "arm",
+        "System Time": "Monday November 23, 2026 13:59:42"
+      },
+      "RunHours": "0.1",
+      "SystemHealth": "OK",
+      "UnsentFeedback": "False",
+      "UpdateAvailable": false,
+      "basestatus": "OFF",
+      "enginestate": "Standby",
+      "kwOutput": "0 kW",
+      "switchstate": "Stop",
+      "tiles": {
+        "subtype": "power",
+        "text": "0 kW",
+        "title": "Output Power",
+        "type": "gauge",
+        "value": "0"
+      },
+      "version": "2.0.4"
+    }
+  },
+  "values": {
+    "Maintenance/Controller Detected": "MEBAY DC-42 Controller",
+    "Maintenance/Fuel Type": "Propane",
+    "Maintenance/Maintenance Due": "No",
+    "Maintenance/Model": "MEBAY DCxx Controller",
+    "Maintenance/Nominal Frequency": 60,
+    "Maintenance/Nominal RPM": 3600,
+    "Maintenance/Phase": 1,
+    "Maintenance/Rated kW": "13",
+    "Maintenance/Service/Average Load": "0 %",
+    "Maintenance/Service/Backup Battery voltage": "13.0 V",
+    "Maintenance/Service/Current Consumption": "0 kWh",
+    "Maintenance/Service/Current Load": "0 %",
+    "Maintenance/Service/Current Run Hours": "0.1 h",
+    "Maintenance/Service/Dynamic Load": "0 %",
+    "Maintenance/Service/Maintenance Countdown": "50 h",
+    "Maintenance/Service/Total Consumption": "0 kWh",
+    "Maintenance/Service/Total Crank Times": 0,
+    "Maintenance/Service/Total Run Hours": "0.1 h",
+    "Monitor/Communication Stats/Average Transaction Time": "0.0121 sec",
+    "Monitor/Communication Stats/CRC Errors": "0 ",
+    "Monitor/Communication Stats/CRC Percent Errors": "0.00%",
+    "Monitor/Communication Stats/Comm Restarts": "0",
+    "Monitor/Communication Stats/Discarded Bytes": "0",
+    "Monitor/Communication Stats/Invalid Data": 0,
+    "Monitor/Communication Stats/Modbus Exceptions": 0,
+    "Monitor/Communication Stats/Modbus Transport": "TCP",
+    "Monitor/Communication Stats/Packet Count": "M: 585, S: 584",
+    "Monitor/Communication Stats/Packets Per Second": "159.84",
+    "Monitor/Communication Stats/Sync Errors": 0,
+    "Monitor/Communication Stats/Timeout Percent Errors": "0.00%",
+    "Monitor/Communication Stats/Validation Errors": 0,
+    "Monitor/Generator Monitor Stats/Generator Monitor Version": "2.0.4",
+    "Monitor/Generator Monitor Stats/Monitor Health": "OK",
+    "Monitor/Generator Monitor Stats/Run time": "Generator Monitor running for 0:00:07.",
+    "Monitor/Generator Monitor Stats/Update Available": "No",
+    "Monitor/Generator Monitor Stats/Update Version": "",
+    "Monitor/Platform Stats/Architecture": "64",
+    "Monitor/Platform Stats/OS Release": "27.2.0",
+    "Monitor/Platform Stats/OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+    "Monitor/Platform Stats/Platform": "Darwin",
+    "Monitor/Platform Stats/Processor": "arm",
+    "Monitor/Platform Stats/System Time": "Monday November 23, 2026 13:59:42",
+    "Outage/Outage Log": "",
+    "Outage/Status": "No outage has occurred since program launched.",
+    "Outage/System In Outage": "No",
+    "Outage/Utility Voltage Maximum": "0 V",
+    "Outage/Utility Voltage Minimum": "0 V",
+    "Status/Engine/Active Power S1": "0.0 kW",
+    "Status/Engine/Active Power S2": "0.0 kW",
+    "Status/Engine/Apparent Power S1": "0.0 kVA",
+    "Status/Engine/Apparent Power S2": "0.0 kVA",
+    "Status/Engine/Average Power Factor": 0.0,
+    "Status/Engine/Battery Voltage": "12.8 V",
+    "Status/Engine/Generator Frequency": "0.0 Hz",
+    "Status/Engine/Generator L1-L2 Voltage": "0 V",
+    "Status/Engine/L1 Current": "0.0 A",
+    "Status/Engine/L2 Current": "0.0 A",
+    "Status/Engine/Oil Pressure": "94 PSI",
+    "Status/Engine/Power Factor PF1": 0.0,
+    "Status/Engine/Power Factor PF2": 0.0,
+    "Status/Engine/Power Factor PF3": 0.0,
+    "Status/Engine/RPM": 0.0,
+    "Status/Engine/Reactive Power Q1": "0.0 kVar",
+    "Status/Engine/Reactive Power Q2": "0.0 kVar",
+    "Status/Engine/Total Active Power": "0.0 kW",
+    "Status/Engine/Total Apparent Power": "0.0 kVA",
+    "Status/Engine/Total Current": "0.0 A",
+    "Status/Engine/Total Reactive Power": "0.0 kVar",
+    "Status/Engine/Voltage L1": "0 V",
+    "Status/Engine/Voltage L2": "0 V",
+    "Status/Engine/Water Temperature": "174 F",
+    "Status/Generator Status": "Mains on Load",
+    "Status/Inputs and Outputs/Relay Output Status": "",
+    "Status/Inputs and Outputs/Switch Input Status": "",
+    "Status/Line/ATS Status": "MAINS Closing",
+    "Status/Line/Mains Frequency": "0.0 Hz",
+    "Status/Line/Mains Voltage L1": "0 V",
+    "Status/Time/Generator Time": "Thursday December 19, 2024 7:233",
+    "Status/Time/Monitor Time": "Monday November 23, 2026 13:59:42",
+    "gui_status/AltDateformat": false,
+    "gui_status/ExerciseInfo/Day": "Monday",
+    "gui_status/ExerciseInfo/Enabled": false,
+    "gui_status/ExerciseInfo/EnhancedExerciseMode": false,
+    "gui_status/ExerciseInfo/Frequency": "Weekly",
+    "gui_status/ExerciseInfo/Hour": "14",
+    "gui_status/ExerciseInfo/Minute": "00",
+    "gui_status/ExerciseInfo/QuietMode": "Off",
+    "gui_status/MonitorTime": "11/23/2026 13:59",
+    "gui_status/PlatformStats/Architecture": "64",
+    "gui_status/PlatformStats/OS Release": "27.2.0",
+    "gui_status/PlatformStats/OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+    "gui_status/PlatformStats/Platform": "Darwin",
+    "gui_status/PlatformStats/Processor": "arm",
+    "gui_status/PlatformStats/System Time": "Monday November 23, 2026 13:59:42",
+    "gui_status/RunHours": "0.1",
+    "gui_status/SystemHealth": "OK",
+    "gui_status/UnsentFeedback": "False",
+    "gui_status/UpdateAvailable": false,
+    "gui_status/basestatus": "OFF",
+    "gui_status/enginestate": "Standby",
+    "gui_status/kwOutput": "0 kW",
+    "gui_status/switchstate": "Stop",
+    "gui_status/tiles": "0",
+    "gui_status/version": "2.0.4"
+  }
+}

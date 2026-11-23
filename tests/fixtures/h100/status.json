@@ -1,0 +1,416 @@
+{
+  "state": {
+    "Maintenance": {
+      "Controller Detected": "H-100 Controller, PM-DCP Release 4.2A1, HW00",
+      "Controller Last Power Fail": "11-14-2019 05:19:00",
+      "Controller Power Up Time": "11-14-2019 05:19:13",
+      "Controller Software Version": "PM-DCP Release 4.2A1, HW00, $Date: 2016/08/24 16:16:44 $",
+      "Engine Settings": {
+        "Alarm Hold Off Time": "15 s",
+        "Crank Time": "15 s",
+        "Engine Cool Down Time": "0 s",
+        "Engine Transfer Enable": "Disabled",
+        "Engine Warm Up Time": "0 s",
+        "Load Accept Frequency": "57 Hz",
+        "Load Accept Voltage": "187 V",
+        "Pause Between Cranks Attempts": "10 s",
+        "Preheat Enable": "Disabled",
+        "Start Attempts": "3",
+        "Start detection RPM": "800"
+      },
+      "Fuel Level Sensor": {
+        "type": "int",
+        "unit": "%",
+        "value": 0
+      },
+      "Fuel Type": "Natural Gas",
+      "Generator Settings": {
+        "CT Ratio": "150",
+        "Number of Flywheel Teeth": "164",
+        "Phase": "3",
+        "Target RPM": "1800"
+      },
+      "Governor Settings": {
+        "Governor Target Frequency": "60.00 Hz",
+        "Soft Start Frequency": "0 Hz"
+      },
+      "I/O Status": {
+        "Inputs": "HUIO-2 Config 16, HUIO-1 Config 15, HUIO-1 Config 14, HUIO-1 Config 13, HUIO-1 Config 12, DI-2 Fuel Pressure, Switch In Auto, HUIO-3 Config 21, HUIO-3 Config 20, HUIO-2 Config 19, HUIO-2 Config 18, HUIO-2 Config 17",
+        "Outputs": "Key in Auto Position, Stopped, Ready to Run, DI-2, Digital Input #6 Active / Ruptured Basin, Gas Leak, Low Fuel Pressure, Digital Input Key in Auto Active, Check for ILC"
+      },
+      "Minimum GenLink Version": "4.4.3, 4.4.0",
+      "Model": "Generac H-100 Industrial Generator",
+      "Name Plate Info": "1234567890                                                      ",
+      "Nominal Frequency": "60",
+      "Nominal RPM": "1800",
+      "Rated kW": "35",
+      "Regulator Settings": {
+        "High Voltage Limit": "250 V",
+        "Low Voltage Limit": "166 V",
+        "Panel Type": "9",
+        "Target Volts": "208 V",
+        "VF Corner 1": "59 Hz",
+        "VF Corner 2": "9 Hz",
+        "Voltage KD": "100 V",
+        "Voltage KI": "20 V",
+        "Voltage KP": "120 V",
+        "Volts Per Hz": "6",
+        "kW Demand": "0 kW"
+      },
+      "Service": {
+        "Total Run Hours": "94.90"
+      }
+    },
+    "Monitor": {
+      "Communication Stats": {
+        "Average Transaction Time": "0.0121 sec",
+        "CRC Errors": "0 ",
+        "CRC Percent Errors": "0.00%",
+        "Comm Restarts": "0",
+        "Discarded Bytes": "0",
+        "Invalid Data": 0,
+        "Modbus Exceptions": 0,
+        "Modbus Transport": "TCP",
+        "Packet Count": "M: 579, S: 578",
+        "Packets Per Second": "159.00",
+        "Sync Errors": 0,
+        "Timeout Percent Errors": "0.00%",
+        "Validation Errors": 0
+      },
+      "Generator Monitor Stats": {
+        "Generator Monitor Version": "2.0.4",
+        "Monitor Health": "OK",
+        "Power log file size": "0.00 MB of 15.00 MB",
+        "Run time": "Generator Monitor running for 0:00:07.",
+        "Update Available": "No",
+        "Update Version": ""
+      },
+      "Platform Stats": {
+        "Architecture": "64",
+        "OS Release": "27.2.0",
+        "OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+        "Platform": "Darwin",
+        "Processor": "arm",
+        "System Time": "Monday November 23, 2026 13:59:23"
+      }
+    },
+    "Outage": {
+      "Status": "Not Supported",
+      "System In Outage": "No"
+    },
+    "Status": {
+      "Alarms": {
+        "Number of Acknowledged Alarms": {
+          "type": "int",
+          "unit": "",
+          "value": 0
+        },
+        "Number of Active Alarms": {
+          "type": "int",
+          "unit": "",
+          "value": 0
+        }
+      },
+      "Battery": {
+        "Battery Charger Current": {
+          "type": "float",
+          "unit": "A",
+          "value": 9.5
+        },
+        "Battery Voltage": {
+          "type": "float",
+          "unit": "V",
+          "value": 14.37
+        }
+      },
+      "Engine": {
+        "Air Fuel Duty Cycle": {
+          "type": "float",
+          "unit": "",
+          "value": 9.8
+        },
+        "Average Current": {
+          "type": "int",
+          "unit": "A",
+          "value": 0
+        },
+        "Average Voltage": {
+          "type": "int",
+          "unit": "V",
+          "value": 0
+        },
+        "Coolant Level": {
+          "type": "int",
+          "unit": "Stp",
+          "value": 797
+        },
+        "Coolant Temp": {
+          "type": "int",
+          "unit": "F",
+          "value": 194
+        },
+        "Current Phase A": {
+          "type": "int",
+          "unit": "A",
+          "value": 0
+        },
+        "Current Phase B": {
+          "type": "int",
+          "unit": "A",
+          "value": 0
+        },
+        "Current Phase C": {
+          "type": "int",
+          "unit": "A",
+          "value": 0
+        },
+        "Engine State": "Stopped, Key SW Auto",
+        "Frequency": {
+          "type": "float",
+          "unit": "Hz",
+          "value": 0.0
+        },
+        "Fuel Level": {
+          "type": "int",
+          "unit": "",
+          "value": 0
+        },
+        "Generator Status": "Stopped             ",
+        "Oil Pressure": {
+          "type": "int",
+          "unit": "psi",
+          "value": 3
+        },
+        "Oil Temp": {
+          "type": "int",
+          "unit": "F",
+          "value": 0
+        },
+        "Output Power": {
+          "type": "float",
+          "unit": "kW",
+          "value": 0.0
+        },
+        "Oxygen Sensor": {
+          "type": "int",
+          "unit": "",
+          "value": 1
+        },
+        "Power Factor": {
+          "type": "float",
+          "unit": "",
+          "value": 1.0
+        },
+        "RPM": {
+          "type": "int",
+          "unit": "",
+          "value": 0
+        },
+        "Switch State": "Auto",
+        "System In Alarm": "",
+        "Throttle Position": {
+          "type": "int",
+          "unit": "Stp",
+          "value": 155
+        },
+        "Voltage A-B": {
+          "type": "int",
+          "unit": "V",
+          "value": 0
+        },
+        "Voltage B-C": {
+          "type": "int",
+          "unit": "V",
+          "value": 0
+        },
+        "Voltage C-A": {
+          "type": "int",
+          "unit": "V",
+          "value": 0
+        }
+      },
+      "Line State": {
+        "Transfer Switch State": "Unknown"
+      },
+      "Time": {
+        "Generator Time": "Wednesday March 3, 2021 12:56:42",
+        "Monitor Time": "Monday November 23, 2026 13:59:23"
+      }
+    },
+    "gui_status": {
+      "AltDateformat": false,
+      "BatteryVoltage": "14.37 V",
+      "ExerciseInfo": {
+        "Day": "Monday",
+        "Enabled": false,
+        "EnhancedExerciseMode": false,
+        "Frequency": "Weekly",
+        "Hour": "14",
+        "Minute": "00",
+        "QuietMode": "Off"
+      },
+      "Frequency": "0.00 Hz",
+      "MonitorTime": "11/23/2026 13:59",
+      "OutputVoltage": "0 V",
+      "PlatformStats": {
+        "Architecture": "64",
+        "OS Release": "27.2.0",
+        "OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+        "Platform": "Darwin",
+        "Processor": "arm",
+        "System Time": "Monday November 23, 2026 13:59:23"
+      },
+      "RPM": "0",
+      "RunHours": "94.90",
+      "SystemHealth": "OK",
+      "UnsentFeedback": "False",
+      "UpdateAvailable": false,
+      "UtilityVoltage": "0",
+      "basestatus": "READY",
+      "enginestate": "Stopped, Key SW Auto",
+      "kwOutput": "0 kW",
+      "switchstate": "Auto",
+      "tiles": {
+        "subtype": "fuel",
+        "text": "0 %",
+        "title": "Fuel Sensor",
+        "type": "gauge",
+        "value": "0"
+      },
+      "version": "2.0.4"
+    }
+  },
+  "values": {
+    "Maintenance/Controller Detected": "H-100 Controller, PM-DCP Release 4.2A1, HW00",
+    "Maintenance/Controller Last Power Fail": "11-14-2019 05:19:00",
+    "Maintenance/Controller Power Up Time": "11-14-2019 05:19:13",
+    "Maintenance/Controller Software Version": "PM-DCP Release 4.2A1, HW00, $Date: 2016/08/24 16:16:44 $",
+    "Maintenance/Engine Settings/Alarm Hold Off Time": "15 s",
+    "Maintenance/Engine Settings/Crank Time": "15 s",
+    "Maintenance/Engine Settings/Engine Cool Down Time": "0 s",
+    "Maintenance/Engine Settings/Engine Transfer Enable": "Disabled",
+    "Maintenance/Engine Settings/Engine Warm Up Time": "0 s",
+    "Maintenance/Engine Settings/Load Accept Frequency": "57 Hz",
+    "Maintenance/Engine Settings/Load Accept Voltage": "187 V",
+    "Maintenance/Engine Settings/Pause Between Cranks Attempts": "10 s",
+    "Maintenance/Engine Settings/Preheat Enable": "Disabled",
+    "Maintenance/Engine Settings/Start Attempts": "3",
+    "Maintenance/Engine Settings/Start detection RPM": "800",
+    "Maintenance/Fuel Level Sensor": "0 %",
+    "Maintenance/Fuel Type": "Natural Gas",
+    "Maintenance/Generator Settings/CT Ratio": "150",
+    "Maintenance/Generator Settings/Number of Flywheel Teeth": "164",
+    "Maintenance/Generator Settings/Phase": "3",
+    "Maintenance/Generator Settings/Target RPM": "1800",
+    "Maintenance/Governor Settings/Governor Target Frequency": "60.00 Hz",
+    "Maintenance/Governor Settings/Soft Start Frequency": "0 Hz",
+    "Maintenance/I/O Status/Inputs": "HUIO-2 Config 16, HUIO-1 Config 15, HUIO-1 Config 14, HUIO-1 Config 13, HUIO-1 Config 12, DI-2 Fuel Pressure, Switch In Auto, HUIO-3 Config 21, HUIO-3 Config 20, HUIO-2 Config 19, HUIO-2 Config 18, HUIO-2 Config 17",
+    "Maintenance/I/O Status/Outputs": "Key in Auto Position, Stopped, Ready to Run, DI-2, Digital Input #6 Active / Ruptured Basin, Gas Leak, Low Fuel Pressure, Digital Input Key in Auto Active, Check for ILC",
+    "Maintenance/Minimum GenLink Version": "4.4.3, 4.4.0",
+    "Maintenance/Model": "Generac H-100 Industrial Generator",
+    "Maintenance/Name Plate Info": "1234567890                                                      ",
+    "Maintenance/Nominal Frequency": "60",
+    "Maintenance/Nominal RPM": "1800",
+    "Maintenance/Rated kW": "35",
+    "Maintenance/Regulator Settings/High Voltage Limit": "250 V",
+    "Maintenance/Regulator Settings/Low Voltage Limit": "166 V",
+    "Maintenance/Regulator Settings/Panel Type": "9",
+    "Maintenance/Regulator Settings/Target Volts": "208 V",
+    "Maintenance/Regulator Settings/VF Corner 1": "59 Hz",
+    "Maintenance/Regulator Settings/VF Corner 2": "9 Hz",
+    "Maintenance/Regulator Settings/Voltage KD": "100 V",
+    "Maintenance/Regulator Settings/Voltage KI": "20 V",
+    "Maintenance/Regulator Settings/Voltage KP": "120 V",
+    "Maintenance/Regulator Settings/Volts Per Hz": "6",
+    "Maintenance/Regulator Settings/kW Demand": "0 kW",
+    "Maintenance/Service/Total Run Hours": "94.90",
+    "Monitor/Communication Stats/Average Transaction Time": "0.0121 sec",
+    "Monitor/Communication Stats/CRC Errors": "0 ",
+    "Monitor/Communication Stats/CRC Percent Errors": "0.00%",
+    "Monitor/Communication Stats/Comm Restarts": "0",
+    "Monitor/Communication Stats/Discarded Bytes": "0",
+    "Monitor/Communication Stats/Invalid Data": 0,
+    "Monitor/Communication Stats/Modbus Exceptions": 0,
+    "Monitor/Communication Stats/Modbus Transport": "TCP",
+    "Monitor/Communication Stats/Packet Count": "M: 579, S: 578",
+    "Monitor/Communication Stats/Packets Per Second": "159.00",
+    "Monitor/Communication Stats/Sync Errors": 0,
+    "Monitor/Communication Stats/Timeout Percent Errors": "0.00%",
+    "Monitor/Communication Stats/Validation Errors": 0,
+    "Monitor/Generator Monitor Stats/Generator Monitor Version": "2.0.4",
+    "Monitor/Generator Monitor Stats/Monitor Health": "OK",
+    "Monitor/Generator Monitor Stats/Power log file size": "0.00 MB of 15.00 MB",
+    "Monitor/Generator Monitor Stats/Run time": "Generator Monitor running for 0:00:07.",
+    "Monitor/Generator Monitor Stats/Update Available": "No",
+    "Monitor/Generator Monitor Stats/Update Version": "",
+    "Monitor/Platform Stats/Architecture": "64",
+    "Monitor/Platform Stats/OS Release": "27.2.0",
+    "Monitor/Platform Stats/OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+    "Monitor/Platform Stats/Platform": "Darwin",
+    "Monitor/Platform Stats/Processor": "arm",
+    "Monitor/Platform Stats/System Time": "Monday November 23, 2026 13:59:23",
+    "Outage/Status": "Not Supported",
+    "Outage/System In Outage": "No",
+    "Status/Alarms/Number of Acknowledged Alarms": 0,
+    "Status/Alarms/Number of Active Alarms": 0,
+    "Status/Battery/Battery Charger Current": "9.5 A",
+    "Status/Battery/Battery Voltage": "14.37 V",
+    "Status/Engine/Air Fuel Duty Cycle": 9.8,
+    "Status/Engine/Average Current": "0 A",
+    "Status/Engine/Average Voltage": "0 V",
+    "Status/Engine/Coolant Level": "797 Stp",
+    "Status/Engine/Coolant Temp": "194 F",
+    "Status/Engine/Current Phase A": "0 A",
+    "Status/Engine/Current Phase B": "0 A",
+    "Status/Engine/Current Phase C": "0 A",
+    "Status/Engine/Engine State": "Stopped, Key SW Auto",
+    "Status/Engine/Frequency": "0.0 Hz",
+    "Status/Engine/Fuel Level": 0,
+    "Status/Engine/Generator Status": "Stopped             ",
+    "Status/Engine/Oil Pressure": "3 psi",
+    "Status/Engine/Oil Temp": "0 F",
+    "Status/Engine/Output Power": "0.0 kW",
+    "Status/Engine/Oxygen Sensor": 1,
+    "Status/Engine/Power Factor": 1.0,
+    "Status/Engine/RPM": 0,
+    "Status/Engine/Switch State": "Auto",
+    "Status/Engine/System In Alarm": "",
+    "Status/Engine/Throttle Position": "155 Stp",
+    "Status/Engine/Voltage A-B": "0 V",
+    "Status/Engine/Voltage B-C": "0 V",
+    "Status/Engine/Voltage C-A": "0 V",
+    "Status/Line State/Transfer Switch State": "Unknown",
+    "Status/Time/Generator Time": "Wednesday March 3, 2021 12:56:42",
+    "Status/Time/Monitor Time": "Monday November 23, 2026 13:59:23",
+    "gui_status/AltDateformat": false,
+    "gui_status/BatteryVoltage": "14.37 V",
+    "gui_status/ExerciseInfo/Day": "Monday",
+    "gui_status/ExerciseInfo/Enabled": false,
+    "gui_status/ExerciseInfo/EnhancedExerciseMode": false,
+    "gui_status/ExerciseInfo/Frequency": "Weekly",
+    "gui_status/ExerciseInfo/Hour": "14",
+    "gui_status/ExerciseInfo/Minute": "00",
+    "gui_status/ExerciseInfo/QuietMode": "Off",
+    "gui_status/Frequency": "0.00 Hz",
+    "gui_status/MonitorTime": "11/23/2026 13:59",
+    "gui_status/OutputVoltage": "0 V",
+    "gui_status/PlatformStats/Architecture": "64",
+    "gui_status/PlatformStats/OS Release": "27.2.0",
+    "gui_status/PlatformStats/OS Version": "Darwin Kernel Version 27.2.0: Thu Oct 15 00:02:46 PDT 2026; root:xnu-13432.41.4~25/RELEASE_ARM64_T6000",
+    "gui_status/PlatformStats/Platform": "Darwin",
+    "gui_status/PlatformStats/Processor": "arm",
+    "gui_status/PlatformStats/System Time": "Monday November 23, 2026 13:59:23",
+    "gui_status/RPM": "0",
+    "gui_status/RunHours": "94.90",
+    "gui_status/SystemHealth": "OK",
+    "gui_status/UnsentFeedback": "False",
+    "gui_status/UpdateAvailable": false,
+    "gui_status/UtilityVoltage": "0",
+    "gui_status/basestatus": "READY",
+    "gui_status/enginestate": "Stopped, Key SW Auto",
+    "gui_status/kwOutput": "0 kW",
+    "gui_status/switchstate": "Auto",
+    "gui_status/tiles": "0",
+    "gui_status/version": "2.0.4"
+  }
+}

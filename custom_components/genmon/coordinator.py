@@ -9,9 +9,15 @@ from typing import Any, Callable
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST, CONF_PORT
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.exceptions import ConfigEntryAuthFailed, HomeAssistantError
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .api import GenmonApiClient, GenmonConnectionError
+from .api import (
+    GenmonApiClient,
+    GenmonAuthError,
+    GenmonCommandError,
+    GenmonConnectionError,
+)
 from .const import (
     CONF_API_KEY,
     CONF_SCAN_INTERVAL,
@@ -20,6 +26,7 @@ from .const import (
     DEFAULT_USE_SSL,
     DOMAIN,
 )
+from .exercise import enhanced_exercise_mode
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -41,12 +48,18 @@ class GenmonCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         self.info: dict[str, Any] = {}
         self._new_entity_callbacks: dict[str, Callable] = {}
         self._known_entity_ids: dict[str, set[str]] = {}
+        # (entity domain, unique_id) of registry entities missing from the
+        # entity list -> time.monotonic() when first seen missing (__init__.py)
+        self.missing_since: dict[tuple[str, str], float] = {}
+        # values of controller button inputs set in HA (controller_buttons.ACTION)
+        self.controller_inputs: dict[str, int] = {}
 
         interval = entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
 
         super().__init__(
             hass,
             _LOGGER,
+            config_entry=entry,
             name=DOMAIN,
             update_interval=timedelta(seconds=interval),
         )
@@ -55,6 +68,9 @@ class GenmonCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         """Fetch latest state from genhalink."""
         try:
             status = await self.api.get_status()
+        except GenmonAuthError as err:
+            # HA stops polling and asks the user for the new API key
+            raise ConfigEntryAuthFailed(str(err)) from err
         except GenmonConnectionError as err:
             raise UpdateFailed(f"Error communicating with genhalink: {err}") from err
 
@@ -67,6 +83,8 @@ class GenmonCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                     self.entities = fresh
             if not self.info:
                 self.info = await self.api.get_info()
+        except GenmonAuthError as err:
+            raise ConfigEntryAuthFailed(str(err)) from err
         except GenmonConnectionError:
             _LOGGER.debug("Failed to fetch entities/info, will retry next poll")
         if not self.entities:
@@ -82,24 +100,80 @@ class GenmonCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         )
         return state
 
-    async def async_refresh_entities(self, _now: Any = None) -> None:
+    async def async_send_command(self, command: str) -> None:
+        """Send a command to genmon, then refresh.
+
+        Failures raise HomeAssistantError, so the user sees why a button,
+        switch or setting didn't work. The messages never contain the
+        command: a controller button's command can hold the passcode.
+        """
+        try:
+            await self.api.send_command(command)
+        except GenmonCommandError as err:
+            if err.result is None or not str(err.result).strip():
+                raise HomeAssistantError(
+                    translation_domain=DOMAIN,
+                    translation_key="command_no_answer",
+                ) from err
+            raise HomeAssistantError(
+                translation_domain=DOMAIN,
+                translation_key="command_failed",
+                translation_placeholders={"result": str(err.result).strip()},
+            ) from err
+        except GenmonAuthError as err:
+            self.config_entry.async_start_reauth(self.hass)
+            raise HomeAssistantError(
+                translation_domain=DOMAIN, translation_key="invalid_auth"
+            ) from err
+        except GenmonConnectionError as err:
+            raise HomeAssistantError(
+                translation_domain=DOMAIN,
+                translation_key="cannot_connect",
+                translation_placeholders={"error": str(err)},
+            ) from err
+        await self.async_request_refresh()
+
+    @property
+    def capabilities(self) -> dict[str, Any]:
+        """The controller capabilities from the entity list.
+
+        genhalink copies EnhancedExerciseMode from genmon's start info, where
+        genmon doesn't report it (always False); genmon reports it in
+        gui_status/ExerciseInfo. None: unknown.
+        """
+        capabilities = dict(self.entities.get("capabilities", {}))
+        if not capabilities:
+            return capabilities  # older genhalink: no capability filtering
+        capabilities["EnhancedExerciseMode"] = enhanced_exercise_mode(self.data)
+        return capabilities
+
+    async def async_refresh_entities(self, _now: Any = None) -> bool:
         """Fetch entity definitions again and add entities that are new.
 
         Runs on its own timer: WebSocket pushes call async_set_updated_data,
         which reschedules the coordinator poll, so a fetch inside
         _async_update_data never runs while genhalink keeps pushing data.
+        Returns True if genhalink answered with an entity list.
         """
         try:
             fresh = await self.api.get_entities()
-        except GenmonConnectionError as err:
+        except (GenmonConnectionError, GenmonAuthError) as err:
             # Includes 503 while genhalink waits for genmon after a restart;
             # the current list stays until a complete one is available.
+            # A rejected API key is reported by the poll (reauth).
             _LOGGER.debug("Entity refresh skipped: %s", err)
-            return
-        if fresh:
-            if self._new_entity_callbacks:
-                self._dispatch_new_entities(fresh)
-            self.entities = fresh
+            return False
+        if not fresh:
+            return False
+        if self._new_entity_callbacks:
+            self._dispatch_new_entities(fresh)
+        self.entities = fresh
+        return True
+
+    @callback
+    def forget_entity(self, platform_key: str, entity_key: str) -> None:
+        """An entity was removed: add it again if genhalink lists it again."""
+        self._known_entity_ids.get(platform_key, set()).discard(entity_key)
 
     def register_platform(
         self,
@@ -136,6 +210,12 @@ class GenmonCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         while True:
             try:
                 await self.api.listen_ws(self._handle_ws_message)
+            except GenmonAuthError as err:
+                # Retrying with the same key can't work: ask for a new one.
+                # The entry reloads after reauth, which starts a new listener.
+                _LOGGER.warning("genhalink rejected the API key: %s", err)
+                self.config_entry.async_start_reauth(self.hass)
+                return
             except Exception:
                 _LOGGER.debug("WebSocket disconnected, reconnecting in 5s")
             await asyncio.sleep(5)
