@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Connect to Genmon",
-        "description": "Enter the connection details for your genmon instance. The API key can be found in the genmon web UI under Settings > Home Assistant Integration (Native).",
+        "description": "Enter the connection details for your genmon instance. The API key can be found in the genmon web UI under Add-Ons > Home Assistant Integration (Native).",
         "data": {
           "host": "Host",
           "port": "Port",
@@ -22,7 +22,7 @@
           "api_key": "API Key"
         },
         "data_description": {
-          "api_key": "API key from genmon Settings > Home Assistant Integration (Native)"
+          "api_key": "API key from genmon Add-Ons > Home Assistant Integration (Native)"
         }
       },
       "reconfigure": {
@@ -36,18 +36,18 @@
       },
       "reauth_confirm": {
         "title": "Update the Genmon API key",
-        "description": "genmon at {host}:{port} rejected the API key. Enter the current key from the genmon web UI under Settings > Home Assistant Integration (Native).",
+        "description": "genmon at {host}:{port} rejected the API key. Enter the current key from the genmon web UI under Add-Ons > Home Assistant Integration (Native).",
         "data": {
           "api_key": "API Key"
         },
         "data_description": {
-          "api_key": "API key from genmon Settings > Home Assistant Integration (Native)"
+          "api_key": "API key from genmon Add-Ons > Home Assistant Integration (Native)"
         }
       }
     },
     "error": {
       "cannot_connect": "Unable to connect to genmon. Verify the host, port, and that the genhalink addon is running.",
-      "invalid_auth": "Invalid API key. Check the key in genmon Settings > Home Assistant Integration (Native).",
+      "invalid_auth": "Invalid API key. Check the key in genmon Add-Ons > Home Assistant Integration (Native).",
       "unknown": "An unexpected error occurred."
     },
     "abort": {
