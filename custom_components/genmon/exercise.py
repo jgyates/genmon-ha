@@ -18,7 +18,7 @@ EnhancedExerciseMode (reported only in gui_status/ExerciseInfo).
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import re
 from typing import Any
 
@@ -28,11 +28,10 @@ MONTHLY = "Monthly"
 FREQUENCIES = {"weekly": WEEKLY, "biweekly": "BiWeekly", "monthly": MONTHLY}
 WEEKDAYS = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 
-# used for parts of the schedule genmon has not reported
+# the day sent when the frequency changes between weekly and monthly, as the
+# schedule has no day of the other kind
 DEFAULT_DAY_OF_WEEK = "Monday"
 DEFAULT_DAY_OF_MONTH = 1
-DEFAULT_HOUR = 12
-DEFAULT_MINUTE = 0
 
 _TIME = re.compile(r"(\d{1,2}):(\d{2})")
 _QUIET_MODE = re.compile(r"Quiet Mode (On|Off)\b", re.IGNORECASE)
@@ -48,6 +47,15 @@ class ExerciseSchedule:
     day_of_month: int | None = None
     hour: int | None = None
     minute: int | None = None
+
+    @property
+    def complete(self) -> bool:
+        """True if every part needed to send this schedule back is known."""
+        if self.frequency is None or self.hour is None or self.minute is None:
+            return False
+        if self.frequency == MONTHLY:
+            return self.day_of_month is not None
+        return self.day_of_week is not None
 
 
 def _frequency(raw: Any) -> str | None:
@@ -151,11 +159,28 @@ def enhanced_exercise_mode(state: Any) -> bool | None:
     return str(info["EnhancedExerciseMode"]).strip().lower() in ("true", "on", "enabled", "yes")
 
 
+def changed_schedule(state: Any, **change: Any) -> ExerciseSchedule | None:
+    """The current schedule with one part changed.
+
+    None if genmon hasn't reported the complete current schedule: the
+    command sets every part, so sending it would overwrite the parts that
+    aren't known.
+    """
+    current = schedule_from_state(state)
+    if current is None or not current.complete:
+        return None
+    return replace(current, **change)
+
+
 def build_exercise_command(schedule: ExerciseSchedule) -> str:
-    """The genmon command that sets this schedule."""
-    frequency = schedule.frequency or WEEKLY
-    hour = DEFAULT_HOUR if schedule.hour is None else schedule.hour
-    minute = DEFAULT_MINUTE if schedule.minute is None else schedule.minute
+    """The genmon command that sets this schedule.
+
+    The frequency, hour and minute must be known; a missing day is the
+    default day (the frequency changed between weekly and monthly).
+    """
+    frequency, hour, minute = schedule.frequency, schedule.hour, schedule.minute
+    if frequency is None or hour is None or minute is None:
+        raise ValueError(f"Incomplete exercise schedule: {schedule}")
     if frequency == MONTHLY:
         day = str(schedule.day_of_month or DEFAULT_DAY_OF_MONTH)
     else:

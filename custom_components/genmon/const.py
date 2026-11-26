@@ -23,10 +23,7 @@ DEFAULT_USE_SSL = True
 
 # Options
 CONF_SCAN_INTERVAL = "scan_interval"
-CONF_BLACKLIST = "blacklist"
 CONF_BUTTON_PASSCODE = "button_passcode"
-CONF_INCLUDE_MONITOR_STATS = "include_monitor_stats"
-CONF_INCLUDE_WEATHER = "include_weather"
 
 # Device class / unit mappings for value extraction
 UNIT_STRIP_PATTERNS = {

@@ -30,6 +30,10 @@ from .exercise import enhanced_exercise_mode
 
 _LOGGER = logging.getLogger(__name__)
 
+# WebSocket reconnect wait in seconds: doubles while genhalink can't be reached
+WS_RETRY_MIN = 5
+WS_RETRY_MAX = 300
+
 
 class GenmonCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     """Coordinator that polls genhalink and listens on WebSocket."""
@@ -206,19 +210,29 @@ class GenmonCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 cb(new_defs)
 
     async def _async_ws_listener(self) -> None:
-        """Background WebSocket listener for push updates."""
+        """Background WebSocket listener for push updates.
+
+        Reconnects after WS_RETRY_MIN seconds when an established connection
+        drops; while genhalink can't be reached the wait doubles up to
+        WS_RETRY_MAX. The poll keeps the data current meanwhile.
+        """
+        failures = 0
         while True:
+            logged_in = False
             try:
-                await self.api.listen_ws(self._handle_ws_message)
+                logged_in = await self.api.listen_ws(self._handle_ws_message)
             except GenmonAuthError as err:
                 # Retrying with the same key can't work: ask for a new one.
                 # The entry reloads after reauth, which starts a new listener.
                 _LOGGER.warning("genhalink rejected the API key: %s", err)
                 self.config_entry.async_start_reauth(self.hass)
                 return
-            except Exception:
-                _LOGGER.debug("WebSocket disconnected, reconnecting in 5s")
-            await asyncio.sleep(5)
+            except Exception:  # noqa: BLE001 - keep the listener alive
+                _LOGGER.debug("WebSocket listener error", exc_info=True)
+            failures = 0 if logged_in else failures + 1
+            delay = min(WS_RETRY_MIN * 2 ** max(failures - 1, 0), WS_RETRY_MAX)
+            _LOGGER.debug("WebSocket disconnected, reconnecting in %ss", delay)
+            await asyncio.sleep(delay)
 
     async def _handle_ws_message(self, data: dict) -> None:
         """Handle incoming WebSocket push data."""

@@ -1,7 +1,6 @@
 """Number platform for Genmon Generator Monitor."""
 from __future__ import annotations
 
-from dataclasses import replace
 import logging
 from typing import Any
 
@@ -9,7 +8,7 @@ from homeassistant.components.number import NumberEntity, NumberMode, RestoreNum
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant, callback
-from homeassistant.exceptions import ServiceValidationError
+from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import controller_buttons as cb
@@ -18,8 +17,8 @@ from .coordinator import GenmonCoordinator
 from .entity import GenmonEntity, should_add_entity
 from .exercise import (
     MONTHLY,
-    ExerciseSchedule,
     build_exercise_command,
+    changed_schedule,
     schedule_from_state,
 )
 
@@ -105,13 +104,18 @@ class GenmonNumber(GenmonEntity, NumberEntity):
         if self._field is None:
             _LOGGER.warning("%s: no genmon command for this number", self.entity_id)
             return
-        schedule = schedule_from_state(self.coordinator.data) or ExerciseSchedule()
+        schedule = changed_schedule(self.coordinator.data, **{self._field: int(value)})
+        if schedule is None:
+            raise HomeAssistantError(
+                translation_domain=DOMAIN,
+                translation_key="exercise_schedule_unknown",
+            )
         if self._field == "day_of_month" and schedule.frequency != MONTHLY:
             raise ServiceValidationError(
                 translation_domain=DOMAIN,
                 translation_key="exercise_day_of_month_not_monthly",
             )
-        command = build_exercise_command(replace(schedule, **{self._field: int(value)}))
+        command = build_exercise_command(schedule)
         _LOGGER.debug("Sending exercise command: %s", command)
         await self.coordinator.async_send_command(command)
         self._stored_value = value

@@ -15,10 +15,7 @@ from homeassistant.data_entry_flow import FlowResult
 from .api import GenmonApiClient, GenmonAuthError, GenmonConnectionError
 from .const import (
     CONF_API_KEY,
-    CONF_BLACKLIST,
     CONF_BUTTON_PASSCODE,
-    CONF_INCLUDE_MONITOR_STATS,
-    CONF_INCLUDE_WEATHER,
     CONF_SCAN_INTERVAL,
     CONF_USE_SSL,
     DEFAULT_PORT,
@@ -281,22 +278,6 @@ class GenmonOptionsFlow(OptionsFlow):
                             CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL
                         ),
                     ): vol.All(vol.Coerce(int), vol.Range(min=2, max=60)),
-                    vol.Optional(
-                        CONF_INCLUDE_MONITOR_STATS,
-                        default=self._config_entry.options.get(
-                            CONF_INCLUDE_MONITOR_STATS, True
-                        ),
-                    ): bool,
-                    vol.Optional(
-                        CONF_INCLUDE_WEATHER,
-                        default=self._config_entry.options.get(
-                            CONF_INCLUDE_WEATHER, True
-                        ),
-                    ): bool,
-                    vol.Optional(
-                        CONF_BLACKLIST,
-                        default=self._config_entry.options.get(CONF_BLACKLIST, ""),
-                    ): str,
                     vol.Optional(
                         CONF_BUTTON_PASSCODE,
                         default=self._config_entry.options.get(CONF_BUTTON_PASSCODE, ""),

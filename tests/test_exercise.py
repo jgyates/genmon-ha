@@ -8,7 +8,7 @@ from homeassistant.components.number import ATTR_VALUE, SERVICE_SET_VALUE
 from homeassistant.components.select import ATTR_OPTION, ATTR_OPTIONS, SERVICE_SELECT_OPTION
 from homeassistant.const import ATTR_ENTITY_ID, STATE_UNKNOWN
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import ServiceValidationError
+from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 from homeassistant.helpers import entity_registry as er
 
 from custom_components.genmon.const import DOMAIN
@@ -77,11 +77,40 @@ def test_enhanced_exercise_mode_values(value, expected) -> None:
         (ExerciseSchedule("Monthly", None, 15, 9, 0), "setexercise=15,09:00,Monthly"),
         (ExerciseSchedule("Monthly", "Monday", None, 9, 0), "setexercise=1,09:00,Monthly"),
         (ExerciseSchedule("Weekly", None, 15, 9, 0), "setexercise=Monday,09:00,Weekly"),
-        (ExerciseSchedule(), "setexercise=Monday,12:00,Weekly"),
     ],
 )
 def test_build_exercise_command(schedule: ExerciseSchedule, command: str) -> None:
     assert build_exercise_command(schedule) == command
+
+
+@pytest.mark.parametrize(
+    "schedule",
+    [
+        ExerciseSchedule(),
+        ExerciseSchedule(None, "Tuesday", None, 16, 48),
+        ExerciseSchedule("Weekly", "Tuesday", None, None, 48),
+        ExerciseSchedule("Weekly", "Tuesday", None, 16, None),
+    ],
+)
+def test_build_exercise_command_incomplete(schedule: ExerciseSchedule) -> None:
+    """No defaults for the frequency or time: they would overwrite genmon's."""
+    with pytest.raises(ValueError):
+        build_exercise_command(schedule)
+
+
+@pytest.mark.parametrize(
+    ("schedule", "complete"),
+    [
+        (ExerciseSchedule("Weekly", "Tuesday", None, 16, 48), True),
+        (ExerciseSchedule("Monthly", None, 15, 9, 0), True),
+        (ExerciseSchedule("Weekly", None, None, 16, 48), False),
+        (ExerciseSchedule("Monthly", "Monday", None, 9, 0), False),
+        (ExerciseSchedule("Weekly", "Tuesday", None, None, None), False),
+        (ExerciseSchedule(), False),
+    ],
+)
+def test_schedule_complete(schedule: ExerciseSchedule, complete: bool) -> None:
+    assert schedule.complete is complete
 
 
 # ---------------------------------------------------------------- entities
@@ -211,3 +240,33 @@ async def test_switch_weekly_to_monthly(
     assert mock_api.commands[-1] == "setexercise=1,11:00,Monthly"
     await select(hass, freq, "BiWeekly")
     assert mock_api.commands[-1] == "setexercise=Saturday,11:00,BiWeekly"
+
+
+@pytest.mark.parametrize(
+    ("exercise_time", "info"),
+    [
+        # no schedule reported at all
+        ("", {"Frequency": "", "Day": "", "Hour": "", "Minute": ""}),
+        # a schedule without the time
+        ("Weekly Tuesday", {"Frequency": "Weekly", "Day": "Tuesday", "Hour": "", "Minute": ""}),
+    ],
+)
+async def test_unknown_schedule_not_changed(
+    hass: HomeAssistant,
+    config_entry: MockConfigEntry,
+    mock_api: FakeGenmonApi,
+    exercise_time: str,
+    info: dict,
+) -> None:
+    """Without the complete schedule no setexercise is sent: it would
+    overwrite the generator's schedule with made-up parts."""
+    set_schedule(mock_api, exercise_time, info)
+    await setup(hass, config_entry)
+
+    with pytest.raises(HomeAssistantError, match="complete exercise schedule"):
+        await set_number(hass, entity_id(hass, config_entry, "number", "exercise_hour"), 10)
+    with pytest.raises(HomeAssistantError, match="complete exercise schedule"):
+        await select(hass, entity_id(hass, config_entry, "select", "exercise_day_of_week"), "Friday")
+    with pytest.raises(HomeAssistantError, match="complete exercise schedule"):
+        await select(hass, entity_id(hass, config_entry, "select", "exercise_frequency"), "Weekly")
+    assert mock_api.commands == []

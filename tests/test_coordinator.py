@@ -1,6 +1,10 @@
 """Coordinator: polling, WebSocket updates and authentication failures."""
 from __future__ import annotations
 
+import asyncio
+from unittest.mock import patch
+
+import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from homeassistant.config_entries import SOURCE_REAUTH
@@ -64,3 +68,32 @@ async def test_entity_refresh_survives_auth_error(
     mock_api.error = GenmonAuthError("Invalid API key")
     await coordinator.async_refresh_entities()
     assert coordinator.entities is before
+
+
+async def test_websocket_reconnect_backoff(
+    hass: HomeAssistant, init_integration: MockConfigEntry, mock_api: FakeGenmonApi
+) -> None:
+    """The reconnect wait doubles while genhalink can't be reached (up to
+    5 minutes) and starts over after a connection that logged in."""
+    coordinator = hass.data[DOMAIN][init_integration.entry_id]
+    results = iter([False] * 8 + [True, False, OSError("boom")])
+    waits: list[float] = []
+
+    async def listen_ws(_callback) -> bool:
+        result = next(results)
+        if isinstance(result, Exception):
+            raise result
+        return result
+
+    async def sleep(delay: float) -> None:
+        waits.append(delay)
+        if len(waits) == 11:
+            raise asyncio.CancelledError
+
+    with (
+        patch.object(coordinator.api, "listen_ws", listen_ws),
+        patch("custom_components.genmon.coordinator.asyncio.sleep", sleep),
+        pytest.raises(asyncio.CancelledError),
+    ):
+        await coordinator._async_ws_listener()
+    assert waits == [5, 10, 20, 40, 80, 160, 300, 300, 5, 5, 10]

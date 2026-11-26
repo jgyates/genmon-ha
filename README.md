@@ -55,7 +55,7 @@ The button opens Genmon in the Marketplace (Home Assistant 2026.11 or newer) or 
 ### Step 1: Enable the genhalink addon in genmon
 
 1. Open the genmon web UI (typically `http://<pi-ip>:8000`)
-2. Go to **Settings** (gear icon)
+2. Go to **Add-Ons**
 3. Find **Home Assistant Integration (Native)** and enable it
 4. An **API Key** is automatically generated — copy it for the next step
 5. Optional: Enable **Zeroconf** for automatic discovery
@@ -88,9 +88,9 @@ After setup, you can configure options via the integration's **Configure** butto
 | Option | Default | Description |
 |--------|---------|-------------|
 | Polling interval | 5 seconds | Fallback polling rate. WebSocket push updates are always active. |
-| Include monitor stats | Yes | Include CPU usage, comm stats, and other platform metrics |
-| Include weather | Yes | Include weather sensors (if configured in genmon) |
-| Excluded sensor paths | (empty) | Comma-separated genmon data paths to skip |
+| Button passcode | (empty) | Passcode for controller buttons that ask for one (e.g. MEBAY controllers) |
+
+Which data genhalink sends to Home Assistant is set in genmon, under Add-Ons → **Home Assistant Integration (Native)**: **Include Monitor Stats**, **Include Weather** and **Excluded Data Paths**.
 
 ## Entities
 
@@ -159,17 +159,17 @@ Both integrations work independently. You can use either or both simultaneously.
 
 ### Cannot connect
 - Verify genmon is running: `http://<pi-ip>:8000`
-- Verify genhalink addon is enabled in genmon Settings
+- Verify genhalink addon is enabled in genmon Add-Ons
 - Check the port (default `9083`) is accessible from your HA instance
 - Check firewall rules on the Pi: `sudo ufw allow 9083/tcp`
 
 ### Invalid API key
 - If the key changes after setup, Home Assistant shows a "Reauthentication required" notification for the integration; enter the new key there
-- The current key is in genmon Settings → Home Assistant Integration (Native)
+- The current key is in genmon Add-Ons → Home Assistant Integration (Native)
 
 ### Missing entities
 - Some entities are controller-specific (Evolution, Nexus, H-100, PowerZone)
-- Check Options → "Include monitor stats" / "Include weather" toggles
+- Check the genhalink settings in genmon (Add-Ons → Home Assistant Integration (Native)): **Include Monitor Stats**, **Include Weather** and **Excluded Data Paths**
 - Dynamic sensors appear after the first data poll
 
 ### Check genhalink logs

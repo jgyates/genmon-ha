@@ -62,20 +62,19 @@
         "title": "Genmon Options",
         "data": {
           "scan_interval": "Polling interval (seconds)",
-          "include_monitor_stats": "Include monitor/platform statistics",
-          "include_weather": "Include weather sensors",
-          "blacklist": "Excluded data paths (comma-separated keywords)",
           "button_passcode": "Button passcode"
         },
         "data_description": {
           "scan_interval": "How often to poll genmon for updates (2-60 seconds, default: 5). WebSocket push updates are always active.",
-          "blacklist": "Comma-separated keywords to exclude from entity creation (case-insensitive, matches any path containing the keyword). Top-level sections: Status, Maintenance, Outage, Monitor, Tiles. Examples: 'Tiles', 'Weather', 'Platform Stats', 'Last Log Entries', 'Serial Number'.",
           "button_passcode": "Passcode or password required by controller buttons that accept user input (e.g. MEBAY controllers). Leave blank if your controller buttons do not require a passcode."
         }
       }
     }
   },
   "exceptions": {
+    "exercise_schedule_unknown": {
+      "message": "genmon hasn't reported the complete exercise schedule, so it can't be changed from Home Assistant without overwriting the parts that aren't known. Check the schedule in genmon."
+    },
     "exercise_day_of_month_not_monthly": {
       "message": "The exercise day of the month only applies to monthly exercise. Set Exercise Frequency to Monthly first."
     },

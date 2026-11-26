@@ -160,12 +160,14 @@ class GenmonApiClient:
                 raise
         return await self.get_info()
 
-    async def listen_ws(self, callback) -> None:
+    async def listen_ws(self, callback) -> bool:
         """Connect to WebSocket and call callback on each message.
 
-        Returns when the connection closes; raises GenmonAuthError if
-        genhalink rejects the API key.
+        Returns when the connection closes: True if genhalink accepted the
+        login, False if the connection failed before that. Raises
+        GenmonAuthError if genhalink rejects the API key.
         """
+        logged_in = False
         session = await self._ensure_session()
         ws_scheme = "wss" if self._use_ssl else "ws"
         url = f"{ws_scheme}://{self._host}:{self._port}/ws"
@@ -176,6 +178,7 @@ class GenmonApiClient:
                 auth_resp = await ws.receive_json(timeout=10)
                 if auth_resp.get("type") != "auth_ok":
                     raise GenmonAuthError(f"WebSocket auth failed: {auth_resp}")
+                logged_in = True
                 self._ws = ws
                 async for msg in ws:
                     if msg.type == aiohttp.WSMsgType.TEXT:
@@ -196,6 +199,7 @@ class GenmonApiClient:
             _LOGGER.debug("WebSocket connection error: %s", err)
         finally:
             self._ws = None
+        return logged_in
 
     async def close(self) -> None:
         """Close the session."""

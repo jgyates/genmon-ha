@@ -1,13 +1,13 @@
 """Select platform for Genmon Generator Monitor."""
 from __future__ import annotations
 
-from dataclasses import replace
 import logging
 from typing import Any
 
 from homeassistant.components.select import SelectEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import DOMAIN
@@ -15,8 +15,8 @@ from .coordinator import GenmonCoordinator
 from .entity import GenmonEntity, should_add_entity
 from .exercise import (
     WEEKLY,
-    ExerciseSchedule,
     build_exercise_command,
+    changed_schedule,
     enhanced_exercise_mode,
     schedule_from_state,
 )
@@ -110,8 +110,13 @@ class GenmonSelect(GenmonEntity, SelectEntity):
         if self._field is None:
             _LOGGER.warning("%s: no genmon command for this select", self.entity_id)
             return
-        schedule = schedule_from_state(self.coordinator.data) or ExerciseSchedule()
-        command = build_exercise_command(replace(schedule, **{self._field: option}))
+        schedule = changed_schedule(self.coordinator.data, **{self._field: option})
+        if schedule is None:
+            raise HomeAssistantError(
+                translation_domain=DOMAIN,
+                translation_key="exercise_schedule_unknown",
+            )
+        command = build_exercise_command(schedule)
         _LOGGER.debug("Sending exercise command: %s", command)
         await self.coordinator.async_send_command(command)
         self._current_option = option

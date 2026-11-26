@@ -166,6 +166,10 @@ async def test_options_flow(
 ) -> None:
     result = await hass.config_entries.options.async_init(config_entry.entry_id)
     assert result["type"] is FlowResultType.FORM
+    # genhalink filters the data (genmon's add-on settings); not offered here
+    assert [str(key) for key in result["data_schema"].schema] == [
+        CONF_SCAN_INTERVAL, "button_passcode"
+    ]
     result = await hass.config_entries.options.async_configure(
         result["flow_id"], {CONF_SCAN_INTERVAL: 10}
     )
